@@ -10,9 +10,10 @@ import Settings from "./screens/Settings"
 
 const RootStack = createStackNavigator(
   {
-    Home: Home,
-    Settings: Settings,
+    Home: {screen: Home},
+    Settings: {screen: Settings},
   },
+
   {
     initialRouteName: "Home"
   }

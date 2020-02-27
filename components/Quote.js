@@ -15,7 +15,7 @@ export default Quote;
 
 const Container = styled.View
 `
-background: ${colours.white};
+background: ${colours.grey};
 height: 25px;
 border-radius: 15px;
 margin: 5px;

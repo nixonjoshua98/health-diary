@@ -18,9 +18,15 @@ const StaticQuotes = [
 ];
 
 class Home extends React.Component {
-  render() {
-     const { navigate } = this.props.navigation;
+  constructor(props) {
+    super(props)
 
+    console.log("HeFJDKJFre");
+
+    console.log(props);
+  }
+
+  render() {
      return (
        <Container>
 
@@ -38,7 +44,7 @@ class Home extends React.Component {
           <NavButton text="Quotes"/>
           <NavButton text="Home"/>
           <NavButton text="Stats"/>
-          <NavButton text="Settings"/>
+          <NavButton text="Settings" onPress={() => this.props.navigation.navigate("Settings")}/>
         </Footer>
 
        </Container>
@@ -51,7 +57,7 @@ export default Home;
 const Container = styled.View
 `
 flex: 1;
-backgroundColor: ${colours.background}
+backgroundColor: ${colours.white}
 `;
 
 const Footer = styled.View
@@ -59,6 +65,6 @@ const Footer = styled.View
 display: flex;
 align-items: center;
 height: 10%;
-backgroundColor: ${colours.blue}
+backgroundColor: ${colours.white}
 flexDirection: row;
 `;
