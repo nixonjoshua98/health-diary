@@ -15,17 +15,15 @@ export default NavButton;
 
 const ButtonContainer = styled.TouchableOpacity
 `
-width: 17%;
+width: 22%;
 height: 75%;
-border-radius: 25px;
 margin-left: 2.5%;
-backgroundColor: ${colours.grey};
 `
 
 const ButtonText = styled.Text
 `
-font-size: 12px;
+font-size: 16px;
 text-align: center;
-padding: 24px;
+padding: 16px;
 font-weight: bold;
 `

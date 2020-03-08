@@ -20,7 +20,7 @@ const StaticQuotes = [
   { Text: "Quote 2" },
 ];
 
-export default class Home extends React.Component {
+export default class Quotes extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -28,22 +28,14 @@ export default class Home extends React.Component {
   render() {
      return (
        <Container>
-
-          <ScrollView vertical={true}>
-
-            {
-              StaticQuotes.map((quote, index) => (
-                <Quote key={index + quote.Text} text={quote.Text}/>))
-            }
-
-          </ScrollView>
-
-        <Footer>
-          <NavButton text=""/>
-          <NavButton text="Diary" onPress={() => this.props.navigation.navigate("Diary")}/>
-          <NavButton text="Quotes" onPress={() => this.props.navigation.navigate("Quotes")}/>
-          <NavButton text="Stats" onPress={() => this.props.navigation.navigate("Stats")}/>
-        </Footer>
+          <ScrollView vertical={true}/>
+          
+          <Footer>
+            <NavButton text="Home" onPress={() => this.props.navigation.navigate("Home")}/>
+            <NavButton text="Diary" onPress={() => this.props.navigation.navigate("Diary")}/>
+            <NavButton text=""/>
+            <NavButton text="Stats" onPress={() => this.props.navigation.navigate("Stats")}/>
+          </Footer>
 
        </Container>
      )
