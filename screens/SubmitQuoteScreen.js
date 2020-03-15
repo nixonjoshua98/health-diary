@@ -1,10 +1,11 @@
 import React from 'react';
-import { TextInput }  from "react-native"
+import { TextInput, StyleSheet }  from "react-native"
 
 import styled from 'styled-components';
 
 // Components
 import colours from '../components/Colours';
+import BigButton from "../components/BigButton"
 import NavButton from "../components/NavButton";
 
 export default class SubmitQuoteScreen extends React.Component {
@@ -15,9 +16,12 @@ export default class SubmitQuoteScreen extends React.Component {
   render() {
      return (
        <Container>
-         <Container>
-          <TextInput multiline={true}/>
-         </Container>
+         <FormStyledView>
+          <TextInput style={MyStyleSheet.TextInput} multiline={true}/>
+
+          <BigButton text="Submit"/>
+
+         </FormStyledView>
 
           <Footer>
             <NavButton text="Home" onPress={() => this.props.navigation.navigate("Home")}/>
@@ -45,3 +49,23 @@ height: 10%;
 backgroundColor: ${colours.grey}
 flexDirection: row;
 `;
+
+const FormStyledView = styled.View
+`
+flex: 1;
+align-items: center;
+`;
+
+
+const MyStyleSheet = StyleSheet.create({
+  TextInput: {
+    display: "flex",
+    backgroundColor: colours.grey,
+    justifyContent: "center",
+    marginTop: 25,
+    marginBottom: 250,
+    borderRadius: 25,
+    width: "90%",
+    height: 200
+  }
+})

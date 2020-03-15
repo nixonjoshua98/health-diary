@@ -22,7 +22,7 @@ const RootStack = createStackNavigator(
   },
 
   {
-    initialRouteName: "Home"
+    initialRouteName: "SubmitQuoteScreen"
   }
 );
 
