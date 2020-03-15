@@ -7,7 +7,7 @@ import colours from '../components/Colours';
 
 const BigButton = props => (
   <ButtonContainer>
-    <ButtonText>{props.text}</ButtonText>
+    <ButtonText onPress={props.onPress}>{props.text}</ButtonText>
   </ButtonContainer>
 );
 

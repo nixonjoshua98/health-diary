@@ -5,6 +5,7 @@ import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 
 // Screens
+import SubmitQuoteScreen from "./screens/SubmitQuoteScreen"
 import Diary from "./screens/Diary"
 import Quotes from "./screens/Quotes"
 import Stats from "./screens/Stats"
@@ -16,6 +17,8 @@ const RootStack = createStackNavigator(
     Diary: {screen: Diary},
     Quotes: {screen: Quotes},
     Stats: {screen: Stats},
+
+    SubmitQuoteScreen: { screen: SubmitQuoteScreen }
   },
 
   {
