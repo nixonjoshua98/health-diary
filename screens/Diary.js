@@ -10,9 +10,6 @@ import colours from '../components/Colours';
 import Quote from "../components/Quote";
 import NavButton from "../components/NavButton";
 
-// Styles
-import { NavigationBar } from "../styles/NavigationBar.js"
-
 // Testing
 const StaticQuotes = [
   { Text: "Quote 0" },

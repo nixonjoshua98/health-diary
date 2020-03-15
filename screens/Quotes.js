@@ -7,14 +7,35 @@ import styled from 'styled-components';
 
 // Components
 import colours from '../components/Colours';
+import BigButton from "../components/BigButton"
 import Quote from "../components/Quote";
 import NavButton from "../components/NavButton";
 
-// Styles
-import { NavigationBar } from "../styles/NavigationBar.js"
-
-// Testing
 const StaticQuotes = [
+  { Text: "Quote 0" },
+  { Text: "Quote 1" },
+  { Text: "Quote 2" },
+  { Text: "Quote 0" },
+  { Text: "Quote 1" },
+  { Text: "Quote 2" },
+  { Text: "Quote 0" },
+  { Text: "Quote 1" },
+  { Text: "Quote 2" },
+  { Text: "Quote 0" },
+  { Text: "Quote 1" },
+  { Text: "Quote 2" },
+  { Text: "Quote 0" },
+  { Text: "Quote 1" },
+  { Text: "Quote 2" },
+  { Text: "Quote 0" },
+  { Text: "Quote 1" },
+  { Text: "Quote 2" },
+  { Text: "Quote 0" },
+  { Text: "Quote 1" },
+  { Text: "Quote 2" },
+  { Text: "Quote 0" },
+  { Text: "Quote 1" },
+  { Text: "Quote 2" },
   { Text: "Quote 0" },
   { Text: "Quote 1" },
   { Text: "Quote 2" },
@@ -28,8 +49,13 @@ export default class Quotes extends React.Component {
   render() {
      return (
        <Container>
-          <ScrollView vertical={true}/>
-          
+          <ScrollView vertical={true}>
+            { this.renderQuotes() }
+          </ScrollView>
+
+          <BigButton text="Submit Quote"/>
+
+
           <Footer>
             <NavButton text="Home" onPress={() => this.props.navigation.navigate("Home")}/>
             <NavButton text="Diary" onPress={() => this.props.navigation.navigate("Diary")}/>
@@ -39,6 +65,15 @@ export default class Quotes extends React.Component {
 
        </Container>
      )
+   }
+
+   renderQuotes()
+   {
+     var temp = []
+
+     StaticQuotes.forEach((quote, i) => { temp.push(<Quote key={i + quote.Text} text={quote.Text}/>) } )  
+     
+     return temp
    }
  }
 
