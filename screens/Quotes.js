@@ -70,8 +70,8 @@ export default class Quotes extends React.Component {
    {
      var temp = []
 
-     StaticQuotes.forEach((quote, i) => { temp.push(<Quote key={i + quote.Text} text={quote.Text}/>) } )  
-     
+     StaticQuotes.forEach((quote, i) => { temp.push(<Quote key={i + quote.Text} text={quote.Text}/>) } )
+
      return temp
    }
  }

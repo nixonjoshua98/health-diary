@@ -6,16 +6,11 @@ import { ScrollView } from 'react-native';
 import styled from 'styled-components';
 
 // Components
+import DiaryEntry from "../components/DiaryEntry"
 import colours from '../components/Colours';
+import BigButton from "../components/BigButton"
 import Quote from "../components/Quote";
 import NavButton from "../components/NavButton";
-
-// Testing
-const StaticQuotes = [
-  { Text: "Quote 0" },
-  { Text: "Quote 1" },
-  { Text: "Quote 2" },
-];
 
 export default class Diary extends React.Component {
   constructor(props) {
@@ -25,8 +20,13 @@ export default class Diary extends React.Component {
   render() {
      return (
        <Container>
+          <ScrollView vertical={true}>
 
-          <ScrollView vertical={true}/>
+          { this.RenderLocalDiaryEntries() }
+
+          </ScrollView>
+
+          <BigButton text="New Diary Entry"/>
 
           <Footer>
             <NavButton text="Home" onPress={() => this.props.navigation.navigate("Home")}/>
@@ -37,6 +37,17 @@ export default class Diary extends React.Component {
 
        </Container>
      )
+   }
+
+   RenderLocalDiaryEntries()
+   {
+     var entries = []
+
+     for (var i = 0; i < 7; i++) {
+       entries.push(<DiaryEntry key={i}/>);
+     }
+
+     return entries;
    }
  }
 

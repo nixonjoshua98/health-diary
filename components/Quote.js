@@ -17,7 +17,7 @@ const Container = styled.View
 `
 background: ${colours.grey};
 height: 25px;
-border-radius: 15px;
+border-radius: 10px;
 margin: 5px;
 align-items: center;
 `;
