@@ -28,6 +28,9 @@ export default class LockScreen extends React.Component {
    TextInput: {
      display: "flex",
      backgroundColor: "#0099CC",
+     textAlign: 'center',
+     fontWeight: "bold",
+     fontSize: 16,
      width: "50%",
      marginBottom: 50,
      borderRadius: 25

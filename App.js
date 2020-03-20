@@ -15,7 +15,6 @@ import LockScreen from "./screens/LockScreen.js"
 const RootStack = createStackNavigator(
   {
     Lock: {screen: LockScreen},
-
     Home: {screen: Home},
     Diary: {screen: Diary},
     Quotes: {screen: Quotes},
