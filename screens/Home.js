@@ -3,13 +3,11 @@ import React from 'react';
 // Native components
 import { ScrollView } from 'react-native';
 
-import styled from 'styled-components';
-
 import Quote from "../components/Quote";
 
-// Navigation objects
-import NavButton from "../components/NavButton";
-import { NavigationView } from "../styles/Styles.js"
+import { RootView } from "../styles/Styles.js"
+
+import NavigationBar from "../components/NavigationBar.js"
 
 // Testing
 const StaticQuotes = [
@@ -25,22 +23,14 @@ export default class Home extends React.Component {
 
   render() {
      return (
-       <Container>
+       <RootView>
+        <ScrollView vertical={true}>
 
-        <NavigationView>
-          <NavButton text=""/>
-          <NavButton text="Diary" onPress={() => this.props.navigation.navigate("Diary")}/>
-          <NavButton text="Quotes" onPress={() => this.props.navigation.navigate("Quotes")}/>
-          <NavButton text="Stats" onPress={() => this.props.navigation.navigate("Stats")}/>
-        </NavigationView>
+        </ScrollView>
 
-       </Container>
+        <NavigationBar nav={this.props.navigation}/>
+
+       </RootView>
      )
    }
  }
-
-const Container = styled.View
-`
-flex: 1;
-backgroundColor: white;
-`;

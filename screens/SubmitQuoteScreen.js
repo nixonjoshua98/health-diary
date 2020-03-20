@@ -1,13 +1,12 @@
 import React from 'react';
 import { TextInput, StyleSheet }  from "react-native"
 
-import styled from 'styled-components';
-
 import BigButton from "../components/BigButton"
 
+import styled from 'styled-components';
+
 // Navigation objects
-import NavButton from "../components/NavButton";
-import { NavigationView } from "../styles/Styles.js"
+import { RootView } from "../styles/Styles.js"
 
 export default class SubmitQuoteScreen extends React.Component {
   constructor(props) {
@@ -16,7 +15,7 @@ export default class SubmitQuoteScreen extends React.Component {
 
   render() {
      return (
-       <Container>
+       <RootView>
          <FormStyledView>
           <TextInput style={MyStyleSheet.TextInput} multiline={true}/>
 
@@ -24,23 +23,12 @@ export default class SubmitQuoteScreen extends React.Component {
 
          </FormStyledView>
 
-          <NavigationView>
-            <NavButton text="Home" onPress={() => this.props.navigation.navigate("Home")}/>
-            <NavButton text="Diary" onPress={() => this.props.navigation.navigate("Diary")}/>
-            <NavButton text="Quotes" onPress={() => this.props.navigation.navigate("Quotes")}/>
-            <NavButton text="Stats" onPress={() => this.props.navigation.navigate("Stats")}/>
-          </NavigationView>
+         <NavigationBar nav={this.props.navigation}/>
 
-       </Container>
+       </RootView>
      )
    }
  }
-
-const Container = styled.View
-`
-flex: 1;
-backgroundColor: white;
-`;
 
 const FormStyledView = styled.View
 `

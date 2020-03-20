@@ -9,4 +9,10 @@ backgroundColor: ${props => props.background ? props.background : "white"}
 flexDirection: row;
 `;
 
-export { NavigationView };
+const RootView = styled.View
+`
+flex: 1;
+backgroundColor: white;
+`;
+
+export { NavigationView, RootView };

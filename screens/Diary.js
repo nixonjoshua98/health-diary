@@ -3,16 +3,13 @@ import React from 'react';
 // Native components
 import { ScrollView } from 'react-native';
 
-import styled from 'styled-components';
-
-// Components
 import DiaryEntry from "../components/DiaryEntry"
 import BigButton from "../components/BigButton"
 import Quote from "../components/Quote";
 
-// Navigation objects
-import NavButton from "../components/NavButton";
-import { NavigationView } from "../styles/Styles.js"
+import { RootView } from "../styles/Styles.js"
+
+import NavigationBar from "../components/NavigationBar.js"
 
 export default class Diary extends React.Component {
   constructor(props) {
@@ -21,7 +18,7 @@ export default class Diary extends React.Component {
 
   render() {
      return (
-       <Container>
+       <RootView>
           <ScrollView vertical={true}>
 
           { this.RenderLocalDiaryEntries() }
@@ -30,14 +27,9 @@ export default class Diary extends React.Component {
 
           <BigButton text="New Diary Entry" background="#66CCFF"/>
 
-          <NavigationView>
-            <NavButton text="Home" onPress={() => this.props.navigation.navigate("Home")}/>
-            <NavButton text=""/>
-            <NavButton text="Quotes" onPress={() => this.props.navigation.navigate("Quotes")}/>
-            <NavButton text="Stats" onPress={() => this.props.navigation.navigate("Stats")}/>
-          </NavigationView>
+          <NavigationBar nav={this.props.navigation}/>
 
-       </Container>
+       </RootView>
      )
    }
 
@@ -52,9 +44,3 @@ export default class Diary extends React.Component {
      return entries;
    }
  }
-
-const Container = styled.View
-`
-flex: 1;
-backgroundColor: white
-`;

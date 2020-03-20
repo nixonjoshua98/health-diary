@@ -3,15 +3,13 @@ import React from 'react';
 // Native components
 import { ScrollView } from 'react-native';
 
-import styled from 'styled-components';
-
 // Components
 import BigButton from "../components/BigButton"
 import Quote from "../components/Quote";
 
-// Navigation objects
-import NavButton from "../components/NavButton";
-import { NavigationView } from "../styles/Styles.js"
+import NavigationBar from "../components/NavigationBar.js"
+
+import { RootView } from "../styles/Styles.js"
 
 const StaticQuotes = [
   { Text: "Quote 0" },
@@ -50,21 +48,16 @@ export default class Quotes extends React.Component {
 
   render() {
      return (
-       <Container>
+       <RootView>
           <ScrollView vertical={true}>
             { this.renderQuotes() }
           </ScrollView>
 
           <BigButton text="Create a Quote!" background="#66CCFF" onPress={() => this.props.navigation.push("SubmitQuoteScreen")}/>
 
-          <NavigationView>
-            <NavButton text="Home" onPress={() => this.props.navigation.navigate("Home")}/>
-            <NavButton text="Diary" onPress={() => this.props.navigation.navigate("Diary")}/>
-            <NavButton text=""/>
-            <NavButton text="Stats" onPress={() => this.props.navigation.navigate("Stats")}/>
-          </NavigationView>
+          <NavigationBar nav={this.props.navigation}/>
 
-       </Container>
+       </RootView>
      )
    }
 
@@ -87,9 +80,3 @@ export default class Quotes extends React.Component {
      return temp
    }
  }
-
-const Container = styled.View
-`
-flex: 1;
-backgroundColor: white;
-`;
