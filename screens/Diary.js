@@ -7,10 +7,12 @@ import styled from 'styled-components';
 
 // Components
 import DiaryEntry from "../components/DiaryEntry"
-import colours from '../components/Colours';
 import BigButton from "../components/BigButton"
 import Quote from "../components/Quote";
+
+// Navigation objects
 import NavButton from "../components/NavButton";
+import NavigationView from "../styles/Styles.js"
 
 export default class Diary extends React.Component {
   constructor(props) {
@@ -26,14 +28,14 @@ export default class Diary extends React.Component {
 
           </ScrollView>
 
-          <BigButton text="New Diary Entry"/>
+          <BigButton text="New Diary Entry" background="#66CCFF"/>
 
-          <Footer>
+          <NavigationView>
             <NavButton text="Home" onPress={() => this.props.navigation.navigate("Home")}/>
             <NavButton text=""/>
             <NavButton text="Quotes" onPress={() => this.props.navigation.navigate("Quotes")}/>
             <NavButton text="Stats" onPress={() => this.props.navigation.navigate("Stats")}/>
-          </Footer>
+          </NavigationView>
 
        </Container>
      )
@@ -54,14 +56,5 @@ export default class Diary extends React.Component {
 const Container = styled.View
 `
 flex: 1;
-backgroundColor: ${colours.white}
-`;
-
-const Footer = styled.View
-`
-display: flex;
-align-items: center;
-height: 10%;
-backgroundColor: ${colours.grey}
-flexDirection: row;
+backgroundColor: white
 `;

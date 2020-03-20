@@ -5,10 +5,12 @@ import { ScrollView } from 'react-native';
 
 import styled from 'styled-components';
 
-// Components
-import colours from '../components/Colours';
+
 import Quote from "../components/Quote";
+
+// Navigation objects
 import NavButton from "../components/NavButton";
+import NavigationView from "../styles/Styles.js"
 
 // Testing
 const StaticQuotes = [
@@ -27,12 +29,12 @@ export default class Stats extends React.Component {
        <Container>
           <ScrollView vertical={true}/>
 
-          <Footer>
+          <NavigationView>
             <NavButton text="Home" onPress={() => this.props.navigation.navigate("Home")}/>
             <NavButton text="Diary" onPress={() => this.props.navigation.navigate("Diary")}/>
             <NavButton text="Quotes" onPress={() => this.props.navigation.navigate("Quotes")}/>
             <NavButton text=""/>
-          </Footer>
+          </NavigationView>
 
        </Container>
      )
@@ -42,14 +44,5 @@ export default class Stats extends React.Component {
 const Container = styled.View
 `
 flex: 1;
-backgroundColor: ${colours.white}
-`;
-
-const Footer = styled.View
-`
-display: flex;
-align-items: center;
-height: 10%;
-backgroundColor: ${colours.grey}
-flexDirection: row;
+backgroundColor: white;
 `;

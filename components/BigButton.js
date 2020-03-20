@@ -2,11 +2,10 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-// Components
-import colours from '../components/Colours';
+
 
 const BigButton = props => (
-  <ButtonContainer>
+  <ButtonContainer background={props.background}>
     <ButtonText onPress={props.onPress}>{props.text}</ButtonText>
   </ButtonContainer>
 );
@@ -20,7 +19,8 @@ height: 35px;
 border-radius: 15px;
 justify-content: center;
 margin: 10px auto 25px auto;
-background: ${colours.grey}
+
+background: ${props => props.background ? props.background : "white"}
 `
 
 const ButtonText = styled.Text

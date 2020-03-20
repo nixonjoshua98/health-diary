@@ -2,22 +2,22 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-// Components
-import colours from '../components/Colours';
-
 const NavButton = props => (
-  <ButtonContainer>
+  <Touchable background={props.background}>
     <ButtonText onPress = {props.onPress}>{props.text}</ButtonText>
-  </ButtonContainer>
+  </Touchable>
 );
+
 
 export default NavButton;
 
-const ButtonContainer = styled.TouchableOpacity
+const Touchable = styled.TouchableOpacity
 `
 width: 22%;
 height: 75%;
 margin-left: 2.5%;
+border-radius: 20px;
+background: ${props => props.background ? props.background : "#66CCFF"}
 `
 
 const ButtonText = styled.Text

@@ -4,9 +4,6 @@ import styled from 'styled-components';
 
 import { Image }  from "react-native"
 
-// Components
-import colours from '../components/Colours';
-
 const DiaryEntry = props => (
   <DiaryEntryView>
 
