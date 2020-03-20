@@ -5,14 +5,22 @@ const NavigationView = styled.View
 display: flex;
 align-items: center;
 height: 10%;
-backgroundColor: ${props => props.background ? props.background : "white"}
+backgroundColor: #fbf7f5;
 flexDirection: row;
 `;
 
 const RootView = styled.View
 `
 flex: 1;
-backgroundColor: white;
+backgroundColor: #fbf7f5;
 `;
 
-export { NavigationView, RootView };
+const LockView = styled.View
+`
+flex: 1;
+justify-content: center;
+backgroundColor: #fbf7f5;
+align-items: center;
+`;
+
+export { NavigationView, RootView, LockView };

@@ -5,14 +5,17 @@ import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 
 // Screens
-import SubmitQuoteScreen from "./screens/SubmitQuoteScreen"
-import Diary from "./screens/Diary"
-import Quotes from "./screens/Quotes"
-import Stats from "./screens/Stats"
-import Home from "./screens/Home"
+import SubmitQuoteScreen from "./screens/SubmitQuoteScreen.js"
+import Diary from "./screens/Diary.js"
+import Quotes from "./screens/Quotes.js"
+import Stats from "./screens/Stats.js"
+import Home from "./screens/Home.js"
+import LockScreen from "./screens/LockScreen.js"
 
 const RootStack = createStackNavigator(
   {
+    Lock: {screen: LockScreen},
+
     Home: {screen: Home},
     Diary: {screen: Diary},
     Quotes: {screen: Quotes},
@@ -22,7 +25,8 @@ const RootStack = createStackNavigator(
   },
 
   {
-    initialRouteName: "Home"
+    initialRouteName: "Lock",
+    headerMode: "none",
   }
 );
 

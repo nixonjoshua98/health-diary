@@ -1,11 +1,13 @@
 import React from 'react';
+
 import { TextInput, StyleSheet }  from "react-native"
 
 import BigButton from "../components/BigButton"
 
 import styled from 'styled-components';
 
-// Navigation objects
+import NavigationBar from "../components/NavigationBar.js"
+
 import { RootView } from "../styles/Styles.js"
 
 export default class SubmitQuoteScreen extends React.Component {
@@ -40,7 +42,7 @@ align-items: center;
 const MyStyleSheet = StyleSheet.create({
   TextInput: {
     display: "flex",
-    backgroundColor: "grey",
+    backgroundColor: "#0099CC",
     justifyContent: "center",
     marginTop: 25,
     marginBottom: 250,

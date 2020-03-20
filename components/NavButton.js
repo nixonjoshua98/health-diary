@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const NavButton = props => (
-  <Touchable background={props.background}>
+  <Touchable>
     <ButtonText onPress = {props.onPress}>{props.text}</ButtonText>
   </Touchable>
 );
@@ -17,7 +17,7 @@ width: 22%;
 height: 75%;
 margin-left: 2.5%;
 border-radius: 20px;
-background: ${props => props.background ? props.background : "#66CCFF"}
+background: #66CCFF;
 `
 
 const ButtonText = styled.Text
