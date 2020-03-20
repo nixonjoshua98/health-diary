@@ -9,7 +9,7 @@ import Quote from "../components/Quote";
 
 // Navigation objects
 import NavButton from "../components/NavButton";
-import NavigationView from "../styles/Styles.js"
+import { NavigationView } from "../styles/Styles.js"
 
 // Testing
 const StaticQuotes = [

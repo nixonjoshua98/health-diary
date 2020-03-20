@@ -9,4 +9,4 @@ backgroundColor: ${props => props.background ? props.background : "white"}
 flexDirection: row;
 `;
 
-export default NavigationView;
+export { NavigationView };

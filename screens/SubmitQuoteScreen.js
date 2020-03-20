@@ -7,7 +7,7 @@ import BigButton from "../components/BigButton"
 
 // Navigation objects
 import NavButton from "../components/NavButton";
-import NavigationView from "../styles/Styles.js"
+import { NavigationView } from "../styles/Styles.js"
 
 export default class SubmitQuoteScreen extends React.Component {
   constructor(props) {
