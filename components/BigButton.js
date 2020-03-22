@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 
-
 const BigButton = props => (
   <ButtonContainer background={props.background} width={props.width}>
     <ButtonText onPress={props.onPress}>{props.text}</ButtonText>

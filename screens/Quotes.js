@@ -53,7 +53,7 @@ export default class Quotes extends React.Component {
             { this.renderQuotes() }
           </ScrollView>
 
-          <BigButton text="Create a Quote!" background="#66CCFF" onPress={() => this.props.navigation.push("SubmitQuoteScreen")}/>
+          <BigButton text="Create a Quote!" background="#FF9900" onPress={() => this.props.navigation.push("SubmitQuoteScreen")}/>
 
           <NavigationBar nav={this.props.navigation}/>
 

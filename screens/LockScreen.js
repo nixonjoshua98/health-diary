@@ -2,6 +2,8 @@ import React from 'react';
 
 import { LockView } from "../styles/Styles.js"
 
+import styled from 'styled-components';
+
 import { TextInput, StyleSheet }  from "react-native"
 
 import BigButton from "../components/BigButton"
@@ -15,12 +17,21 @@ export default class LockScreen extends React.Component {
      return (
        <LockView>
 
+       <StyledText>Passcode</StyledText>
+
        <TextInput style={MyStyleSheet.TextInput}/>
 
-       <BigButton text="Submit" background="#FF9900" width="100px" onPress={() => this.props.navigation.navigate("Home")}/>
+       <BigButton text="Submit" background="#FF9900" width="100px" onPress={() => this.OnSubmitPress()}/>
 
        </LockView>
      )
+   }
+
+   OnSubmitPress()
+   {
+     const file = "../data/dont-look-here.txt"
+
+     this.props.navigation.navigate("Home")
    }
  }
 
@@ -36,3 +47,11 @@ export default class LockScreen extends React.Component {
      borderRadius: 25
    }
  })
+
+ const StyledText = styled.Text
+ `
+ font-size: 16px;
+ text-align: center;
+ padding: 16px;
+ font-weight: bold;
+ `

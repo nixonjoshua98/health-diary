@@ -25,7 +25,7 @@ export default class Diary extends React.Component {
 
           </ScrollView>
 
-          <BigButton text="New Diary Entry" background="#66CCFF"/>
+          <BigButton text="New Diary Entry" background="#FF9900" onPress={() => this.props.navigation.push("CreateDiaryEntry")}/>
 
           <NavigationBar nav={this.props.navigation}/>
 

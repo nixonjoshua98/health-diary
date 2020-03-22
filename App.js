@@ -11,16 +11,18 @@ import Quotes from "./screens/Quotes.js"
 import Stats from "./screens/Stats.js"
 import Home from "./screens/Home.js"
 import LockScreen from "./screens/LockScreen.js"
+import CreateDiaryEntry from "./screens/CreateDiaryEntry.js"
 
 const RootStack = createStackNavigator(
   {
-    Lock: {screen: LockScreen},
-    Home: {screen: Home},
-    Diary: {screen: Diary},
-    Quotes: {screen: Quotes},
-    Stats: {screen: Stats},
+    Lock: { screen: LockScreen },
+    Home: { screen: Home },
+    Diary: { screen: Diary },
+    Quotes: { screen: Quotes },
+    Stats: { screen: Stats },
 
-    SubmitQuoteScreen: { screen: SubmitQuoteScreen }
+    SubmitQuoteScreen: { screen: SubmitQuoteScreen },
+    CreateDiaryEntry: {screen: CreateDiaryEntry }
   },
 
   {

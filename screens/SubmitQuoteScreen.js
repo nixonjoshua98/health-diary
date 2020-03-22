@@ -18,12 +18,12 @@ export default class SubmitQuoteScreen extends React.Component {
   render() {
      return (
        <RootView>
-         <FormStyledView>
+         <StyledView>
           <TextInput style={MyStyleSheet.TextInput} multiline={true}/>
 
           <BigButton text="Submit" background="#66CCFF"/>
 
-         </FormStyledView>
+         </StyledView>
 
          <NavigationBar nav={this.props.navigation}/>
 
@@ -32,9 +32,10 @@ export default class SubmitQuoteScreen extends React.Component {
    }
  }
 
-const FormStyledView = styled.View
+const StyledView = styled.View
 `
 flex: 1;
+margin-top: 25px;
 align-items: center;
 `;
 
