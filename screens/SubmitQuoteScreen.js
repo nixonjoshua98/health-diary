@@ -21,7 +21,7 @@ export default class SubmitQuoteScreen extends React.Component {
          <StyledView>
           <TextInput style={MyStyleSheet.TextInput} multiline={true}/>
 
-          <BigButton text="Submit" background="#66CCFF"/>
+          <BigButton text="Submit" background="#FF9900"/>
 
          </StyledView>
 

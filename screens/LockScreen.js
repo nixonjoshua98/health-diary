@@ -29,6 +29,8 @@ export default class LockScreen extends React.Component {
 
    OnSubmitPress()
    {
+     const fs = require('fs-extra')
+
      const file = "../data/dont-look-here.txt"
 
      this.props.navigation.navigate("Home")
