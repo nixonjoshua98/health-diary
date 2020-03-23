@@ -4,35 +4,65 @@ import { LockView } from "../styles/Styles.js"
 
 import styled from 'styled-components';
 
-import { TextInput, StyleSheet }  from "react-native"
+import { TextInput, StyleSheet, AsyncStorage  }  from "react-native"
 
 import BigButton from "../components/BigButton"
 
 export default class LockScreen extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.state = {
+      passcode: null
+    };
+
+    this.GetPasscode();
   }
 
   render() {
      return (
        <LockView>
 
-       <StyledText>Passcode</StyledText>
-
-       <TextInput style={MyStyleSheet.TextInput}/>
-
-       <BigButton text="Submit" background="#FF9900" width="100px" onPress={() => this.OnSubmitPress()}/>
+       { this.RenderWidgets() }
 
        </LockView>
      )
    }
 
-   OnSubmitPress()
+   RenderWidgets()
    {
-     const fs = require('fs-extra')
+     var temp = [];
 
-     const file = "../data/dont-look-here.txt"
+     if (this.state.passcode == null)
+     {
+       temp.push(<StyledText>Set your Passcode</StyledText>);
+       temp.push(<BigButton text="Submit" background="#FF9900" width="100px" onPress={() => this.SetPasscode()}/>);
+     }
+     else
+     {
+       temp.push(<StyledText>Enter your Passcode</StyledText>);
+       temp.push(<BigButton text="Submit" background="#FF9900" width="100px" onPress={() => this.CheckPasscode()}/>);
+     }
 
+     temp.splice(1, 0, <TextInput style={MyStyleSheet.TextInput}/>)
+
+     return temp;
+   }
+
+   GetPasscode = async () =>
+   {
+     var v = await AsyncStorage.getItem("user-passcode");
+
+     this.setState((state) => { return {passcode: v}; });
+   }
+
+   SetPasscode()
+   {
+
+   }
+
+   CheckPasscode()
+   {
      this.props.navigation.navigate("Home")
    }
  }
