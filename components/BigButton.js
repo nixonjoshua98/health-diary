@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 
 const BigButton = props => (
-  <ButtonContainer background={props.background} width={props.width}>
-    <ButtonText onPress={props.onPress}>{props.text}</ButtonText>
+  <ButtonContainer background={props.background} width={props.width} onPress={props.onPress}>
+    <ButtonText>{props.text}</ButtonText>
   </ButtonContainer>
 );
 
