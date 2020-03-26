@@ -23,4 +23,9 @@ backgroundColor: #fbf7f5;
 align-items: center;
 `;
 
-export { NavigationView, RootView, LockView };
+const BigButtonRowView = styled.View
+`
+flexDirection: row;
+`
+
+export { NavigationView, RootView, LockView, BigButtonRowView };

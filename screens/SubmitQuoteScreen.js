@@ -13,15 +13,19 @@ import { RootView } from "../styles/Styles.js"
 export default class SubmitQuoteScreen extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      quote: ""
+    }
   }
 
   render() {
      return (
        <RootView>
          <StyledView>
-          <TextInput style={MyStyleSheet.TextInput} multiline={true}/>
+          <TextInput style={MyStyleSheet.TextInput} onChange={e => this.OnQuoteTextUpdate(e)}/>
 
-          <BigButton text="Submit" background="#FF9900"/>
+          <BigButton text="Submit" background="#FF9900" onPress={() => this.OnQuoteSubmit()}/>
 
          </StyledView>
 
@@ -29,6 +33,30 @@ export default class SubmitQuoteScreen extends React.Component {
 
        </RootView>
      )
+   }
+
+   OnQuoteTextUpdate = (e) =>
+   {
+     var quote = e.nativeEvent.text
+
+     this.setState((state) => { return {quote: quote}; });
+   }
+
+   OnQuoteSubmit()
+   {
+     if (this.state.quote.length < 12)
+     {
+       return;
+     }
+
+     fetch('http://192.168.0.74:5000/set/', {
+       method: "POST",
+       headers: {'Content-Type': 'application/json'},
+       body: JSON.stringify({"Text": this.state.quote})
+     })
+     .then(response => { if (response.status == 200) { this.props.navigation.navigate("Quotes"); } })
+
+     .catch((error) => { console.log('network error: ' + error); })
    }
  }
 
@@ -45,10 +73,13 @@ const MyStyleSheet = StyleSheet.create({
     display: "flex",
     backgroundColor: "#0099CC",
     justifyContent: "center",
-    marginTop: 25,
+    marginTop: 100,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 16,
     marginBottom: 250,
     borderRadius: 25,
     width: "90%",
-    height: 200
+    height: 50
   }
 })

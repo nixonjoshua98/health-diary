@@ -9,7 +9,7 @@ import { TextInput, StyleSheet, AsyncStorage  }  from "react-native"
 import BigButton from "../components/BigButton"
 
 
-const PASSCODE_KEY = "user-passcode-53";
+const PASSCODE_KEY = "user-passcode-7";
 
 export default class LockScreen extends React.Component {
   constructor(props) {

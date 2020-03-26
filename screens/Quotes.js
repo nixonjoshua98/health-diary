@@ -9,41 +9,25 @@ import Quote from "../components/Quote";
 
 import NavigationBar from "../components/NavigationBar.js"
 
-import { RootView } from "../styles/Styles.js"
-
-const StaticQuotes = [
-  { Text: "Quote 0" },
-  { Text: "012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890" },
-  { Text: "Quote 2" },
-  { Text: "Quote 0" },
-  { Text: "Quote 1" },
-  { Text: "Quote 2" },
-  { Text: "Quote 0" },
-  { Text: "Quote 1" },
-  { Text: "reallllllllllllllllllllllllllllllllllllllly llllllllllllllllllllllllllooooooooooooooooonnnnnnnnnnnnnnnnngggggggggggggggggg quote sssssssssuuuuuuuuuuuuper long" },
-  { Text: "Quote 0" },
-  { Text: "Quote 1" },
-  { Text: "Quote 2" },
-  { Text: "Quote 0" },
-  { Text: "Quote 1" },
-  { Text: "reallllllllllllllllllllllllllllllllllllllly llllllllllllllllllllllllllooooooooooooooooonnnnnnnnnnnnnnnnngggggggggggggggggg quote sssssssssuuuuuuuuuuuuper long" },
-  { Text: "Quote 0" },
-  { Text: "Quote 1" },
-  { Text: "Quote 2" },
-  { Text: "Quote 0" },
-  { Text: "Quote 1" },
-  { Text: "Quote 2" },
-  { Text: "Quote 0" },
-  { Text: "Quote 1" },
-  { Text: "Quote 2" },
-  { Text: "Quote 0" },
-  { Text: "Quote 1" },
-  { Text: "Quote 2" },
-];
+import { RootView, BigButtonRowView } from "../styles/Styles.js"
 
 export default class Quotes extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      quotes: null
+    }
+
+    this.FetchQuotes();
+  }
+
+  FetchQuotes()
+  {
+    fetch('http://192.168.0.74:5000/get/', { method: "GET" })
+    .then(response => response.json())
+    .then(json => this.setState({quotes: json}) )
+    .catch((error) => { console.log('network error: ' + error); })
   }
 
   render() {
@@ -53,7 +37,10 @@ export default class Quotes extends React.Component {
             { this.renderQuotes() }
           </ScrollView>
 
-          <BigButton text="Create a Quote!" background="#FF9900" onPress={() => this.props.navigation.push("SubmitQuoteScreen")}/>
+          <BigButtonRowView>
+            <BigButton text="Create a Quote!" background="#FF9900" onPress={() => this.props.navigation.push("SubmitQuoteScreen")}/>
+            <BigButton text="Refresh Quotes" background="#FF9900" onPress={() => this.OnQuoteRefresh()}/>
+          </BigButtonRowView>
 
           <NavigationBar nav={this.props.navigation}/>
 
@@ -61,11 +48,21 @@ export default class Quotes extends React.Component {
      )
    }
 
+   OnQuoteRefresh()
+   {
+     this.FetchQuotes();
+   }
+
    renderQuotes()
    {
      var temp = []
 
-     StaticQuotes.forEach((quote, i) => {
+     if (this.state.quotes === null)
+     {
+       return;
+     }
+
+     Object.values(this.state.quotes).forEach((quote, i) => {
        if (i % 2 == 0)
        {
          temp.push(<Quote key={i + quote.Text} text={quote.Text} background="#66CCFF"/>)
@@ -74,8 +71,7 @@ export default class Quotes extends React.Component {
        {
          temp.push(<Quote key={i + quote.Text} text={quote.Text} background="#0099CC"/>)
        }
-     }
-   )
+     })
 
      return temp
    }
