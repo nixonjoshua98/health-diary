@@ -3,8 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const NavButton = props => (
-  <Touchable>
-    <ButtonText onPress = {props.onPress}>{props.text}</ButtonText>
+  <Touchable onPress = {props.onPress}>
+    <ButtonText>{props.text}</ButtonText>
   </Touchable>
 );
 
