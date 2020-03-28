@@ -9,14 +9,12 @@ import SubmitQuoteScreen from "./screens/SubmitQuoteScreen.js"
 import Diary from "./screens/Diary.js"
 import Quotes from "./screens/Quotes.js"
 import Stats from "./screens/Stats.js"
-import Home from "./screens/Home.js"
 import LockScreen from "./screens/LockScreen.js"
 import CreateDiaryEntry from "./screens/CreateDiaryEntry.js"
 
 const RootStack = createStackNavigator(
   {
     Lock: { screen: LockScreen },
-    Home: { screen: Home },
     Diary: { screen: Diary },
     Quotes: { screen: Quotes },
     Stats: { screen: Stats },

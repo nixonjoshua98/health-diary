@@ -13,7 +13,7 @@ const DiaryEntry = props => (
         <Date>{props.date}</Date>
         </Header>
 
-      <DiaryText>{"Really...Really long piece of text filled with lots of lines and text, text and lines and more text and even more text on a different line"}</DiaryText>
+      <DiaryText>{props.text}</DiaryText>
 
       <Footer>
         <Rating>{props.rating}</Rating>

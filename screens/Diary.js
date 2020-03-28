@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Native components
-import { ScrollView } from 'react-native';
+import { ScrollView, AsyncStorage } from 'react-native';
 
 import DiaryEntry from "../components/DiaryEntry"
 import BigButton from "../components/BigButton"
@@ -11,9 +11,15 @@ import { RootView } from "../styles/Styles.js"
 
 import NavigationBar from "../components/NavigationBar.js"
 
+const DIARY_KEY = "@app-diary-2"
+
 export default class Diary extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      entries: null
+    };
   }
 
   render() {
@@ -33,12 +39,37 @@ export default class Diary extends React.Component {
      )
    }
 
+   LoadEntries = async () =>
+   {
+     var entries = await AsyncStorage.getItem(DIARY_KEY);
+
+     if (entries === null)
+     {
+       entries = {entries: []};
+     }
+     else
+     {
+       entries = JSON.parse(entries);
+     }
+
+     this.setState((state) => { return {entries: entries}; });
+   }
+
    RenderDiaryEntries()
    {
-     var entries = []
+     this.LoadEntries();
 
-     for (var i = 0; i < 7; i++) {
-       entries.push(<DiaryEntry key={i} date={"Today"} location={"London"} rating={"Noice"}/>);
+     if (this.state.entries === null)
+     {
+       return;
+     }
+
+     var entries = [];
+
+     for (var i = 0; i < this.state.entries.entries.length; i++) {
+       var e = this.state.entries.entries[i];
+
+       entries.push(<DiaryEntry key={i} text={e.Text} date={e.Date} location={"London"} rating={"Rating: " + (parseInt(e.Rating) + 1)}/>);
      }
 
      return entries;

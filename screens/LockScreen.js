@@ -82,7 +82,7 @@ export default class LockScreen extends React.Component {
    {
      if (this.state.textInput === this.state.passcode)
      {
-       this.props.navigation.navigate("Home")
+       this.props.navigation.navigate("Diary")
      }
    }
 

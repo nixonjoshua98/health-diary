@@ -13,7 +13,7 @@ export default NavButton;
 
 const Touchable = styled.TouchableOpacity
 `
-width: 22%;
+width: 30.5%;
 height: 75%;
 margin-left: 2.5%;
 border-radius: 20px;
