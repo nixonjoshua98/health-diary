@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LockView } from "../styles/Styles.js"
+import { LockView, ColumnFlex } from "../styles/Styles.js"
 
 import styled from 'styled-components';
 
@@ -9,7 +9,7 @@ import { TextInput, StyleSheet, AsyncStorage  }  from "react-native"
 import BigButton from "../components/BigButton"
 
 
-const PASSCODE_KEY = "user-passcode-7";
+const PASSCODE_KEY = "@app-6";
 
 export default class LockScreen extends React.Component {
   constructor(props) {
@@ -17,7 +17,7 @@ export default class LockScreen extends React.Component {
 
     this.state = {
       passcode: null,
-      textInput: ""
+      textInput: "",
     };
 
     this.GetPasscode();
@@ -27,33 +27,38 @@ export default class LockScreen extends React.Component {
      return (
        <LockView>
 
-       { this.RenderWidgets() }
+       {this.TitleText()}
+
+       <TextInput style={MyStyleSheet.TextInput} onChange={e => this.OnTextUpdate(e)}/>
+
+       <ColumnFlex>
+       {this.SubmitButton()}
+       </ColumnFlex>
 
        </LockView>
      )
    }
 
-   RenderWidgets()
+   TitleText()
    {
-     var temp = [];
-
-     // New user
-     if (this.state.passcode == null)
+     if (this.state.passcode !== null)
      {
-       temp.push(<StyledText key={0}>Set your Passcode</StyledText>);
-       temp.push(<BigButton key={1}text="Set" background="#FF9900" width="100px" onPress={() => this.OnSetPasscode()}/>);
+       return <StyledText>Enter Password</StyledText>
      }
 
-     // Existing user
-     else
+     return <StyledText>Set Password</StyledText>
+   }
+
+   SubmitButton()
+   {
+     if (this.state.passcode !== null)
      {
-       temp.push(<StyledText key={2}>Enter your Passcode</StyledText>);
-       temp.push(<BigButton key={3} text="Submit" background="#FF9900" width="100px" onPress={() => this.OnSubmit()}/>);
+       var buttons = []
+       buttons.push(<BigButton text="Login" background="#FF9900" width="150px" onPress={() => this.OnLogin()}/>);
+       return buttons;
      }
 
-     temp.splice(1, 0, <TextInput key={4} style={MyStyleSheet.TextInput} value={this.state.inputValue} onChange={e => this.OnTextUpdate(e)}/>)
-
-     return temp;
+     return <BigButton text="Set" background="#FF9900" width="150px" onPress={() => this.OnSetPasscode()}/>;
    }
 
    OnTextUpdate = (e) =>
@@ -70,11 +75,10 @@ export default class LockScreen extends React.Component {
    OnSetPasscode()
    {
      this.SetPasscode();
-
-     this.props.navigation.navigate("Home");
+     this.GetPasscode();
    }
 
-   OnSubmit()
+   OnLogin()
    {
      if (this.state.textInput === this.state.passcode)
      {
@@ -91,9 +95,7 @@ export default class LockScreen extends React.Component {
 
    SetPasscode = async () =>
    {
-     var v = await AsyncStorage.setItem(PASSCODE_KEY, this.state.textInput);
-
-     this.setState((state) => { return {passcode: v}; });
+     await AsyncStorage.setItem(PASSCODE_KEY, this.state.textInput);
    }
  }
 

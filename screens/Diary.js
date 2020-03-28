@@ -21,7 +21,7 @@ export default class Diary extends React.Component {
        <RootView>
           <ScrollView vertical={true}>
 
-          { this.RenderLocalDiaryEntries() }
+          { this.RenderDiaryEntries() }
 
           </ScrollView>
 
@@ -33,12 +33,12 @@ export default class Diary extends React.Component {
      )
    }
 
-   RenderLocalDiaryEntries()
+   RenderDiaryEntries()
    {
      var entries = []
 
      for (var i = 0; i < 7; i++) {
-       entries.push(<DiaryEntry key={i}/>);
+       entries.push(<DiaryEntry key={i} date={"Today"} location={"London"} rating={"Noice"}/>);
      }
 
      return entries;

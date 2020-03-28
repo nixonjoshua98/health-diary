@@ -9,7 +9,7 @@ import Quote from "../components/Quote";
 
 import NavigationBar from "../components/NavigationBar.js"
 
-import { RootView, BigButtonRowView } from "../styles/Styles.js"
+import { RootView, ColumnRow } from "../styles/Styles.js"
 
 export default class Quotes extends React.Component {
   constructor(props) {
@@ -37,10 +37,10 @@ export default class Quotes extends React.Component {
             { this.renderQuotes() }
           </ScrollView>
 
-          <BigButtonRowView>
+          <ColumnRow>
             <BigButton text="Create a Quote!" background="#FF9900" onPress={() => this.props.navigation.push("SubmitQuoteScreen")}/>
             <BigButton text="Refresh Quotes" background="#FF9900" onPress={() => this.OnQuoteRefresh()}/>
-          </BigButtonRowView>
+          </ColumnRow>
 
           <NavigationBar nav={this.props.navigation}/>
 

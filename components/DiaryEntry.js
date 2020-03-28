@@ -10,14 +10,14 @@ const DiaryEntry = props => (
     <TextView>
 
       <Header>
-        <Date>{"Tuesday 22nd March 2019"}</Date>
+        <Date>{props.date}</Date>
         </Header>
 
       <DiaryText>{"Really...Really long piece of text filled with lots of lines and text, text and lines and more text and even more text on a different line"}</DiaryText>
 
       <Footer>
-        <Rating>{"Meh"}</Rating>
-        <Location>{"London"}</Location>
+        <Rating>{props.rating}</Rating>
+        <Location>{props.location}</Location>
       </Footer>
 
     </TextView>
