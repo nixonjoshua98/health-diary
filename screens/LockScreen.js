@@ -8,99 +8,94 @@ import { TextInput, StyleSheet, AsyncStorage  }  from "react-native"
 
 import BigButton from "../components/BigButton"
 
-
-const PASSCODE_KEY = "@app-6";
+import Constants from "../common/constants.js"
 
 export default class LockScreen extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      passcode: null,
-      textInput: "",
+      SavedHash: null,
+      EnteredHash: null,
+      NewUser: false
     };
 
-    this.GetPasscode();
+    this.SetState_SavedHash_NewUser();
   }
 
   render() {
-     return (
-       <LockView>
+    const NewUser = this.state.NewUser;
 
-       {this.TitleText()}
+    return (
+      <LockView>
+          {
+            NewUser ? <StyledText>Welcome, Set Your Password :)</StyledText>
+            : <StyledText>Welcome Back!</StyledText>
+          }
 
-       <TextInput key={0} style={MyStyleSheet.TextInput} onChange={e => this.OnTextUpdate(e)}/>
+          <TextInput style={MyStyleSheet.PasswordInput} onChange={e => this.OnTextUpdate(e)}/>
 
-       <ColumnFlex>
-       {this.SubmitButton()}
-       </ColumnFlex>
+          {
+            NewUser ?
+            <BigButton text="Set" key={2} background="#FF9900" width="150px" onPress={() => this.OnSetNewPassword()}/>
+            : <BigButton text="Login" key={1} background="#FF9900" width="150px" onPress={() => this.OnLogin()}/>
+          }
+      </LockView>
+    )
+  }
 
-       </LockView>
-     )
+   OnTextUpdate(e)
+   {
+     var hash = this.HashString(e.nativeEvent.text)
+
+     this.setState( {EnteredHash: hash} );
    }
 
-   TitleText()
+   OnSetNewPassword()
    {
-     if (this.state.passcode !== null)
-     {
-       return <StyledText>Enter Password</StyledText>
-     }
+     this.SaveNewHash();
 
-     return <StyledText>Set Password</StyledText>
-   }
-
-   SubmitButton()
-   {
-     if (this.state.passcode !== null)
-     {
-       var buttons = []
-       buttons.push(<BigButton text="Login" key={1} background="#FF9900" width="150px" onPress={() => this.OnLogin()}/>);
-       return buttons;
-     }
-
-     return <BigButton text="Set" key={2} background="#FF9900" width="150px" onPress={() => this.OnSetPasscode()}/>;
-   }
-
-   OnTextUpdate = (e) =>
-   {
-     var this_lang_sucks = e.nativeEvent.text
-
-     var md5 = require("md5");
-
-     var hash = md5(this_lang_sucks);
-
-     this.setState((state) => { return {textInput: hash}; });
-   }
-
-   OnSetPasscode()
-   {
-     this.SetPasscode();
-     this.GetPasscode();
+     this.SetState_SavedHash_NewUser();
    }
 
    OnLogin()
    {
-     if (this.state.textInput === this.state.passcode)
+     if (this.state.EnteredHash === this.state.SavedHash)
      {
        this.props.navigation.navigate("Diary")
      }
    }
 
-   GetPasscode = async () =>
+   SetState_SavedHash_NewUser = async () =>
    {
-     var v = await AsyncStorage.getItem(PASSCODE_KEY);
+     var v = await AsyncStorage.getItem(Constants.PasswordKey);
 
-     this.setState((state) => { return {passcode: v}; });
+     /*
+     This is stupid, why can I not simply call two methods from elsehwere without one of them not updating the setState,
+     but instead have to use the callback to set something else.
+     */
+     this.setState( {SavedHash: v}, () => {
+       var isNewUser = this.state.SavedHash === null;
+
+       this.setState( {NewUser: isNewUser} );
+     });
    }
 
-   SetPasscode = async () =>
+   SaveNewHash = async () =>
    {
-     await AsyncStorage.setItem(PASSCODE_KEY, this.state.textInput);
+     await AsyncStorage.setItem(Constants.PasswordKey, this.state.EnteredHash);
+   }
+
+   HashString(str)
+   {
+     var md5 = require("md5");
+
+     return md5(str);
    }
  }
 
  const MyStyleSheet = StyleSheet.create({
-   TextInput: {
+   PasswordInput: {
      display: "flex",
      backgroundColor: "#0099CC",
      textAlign: 'center',

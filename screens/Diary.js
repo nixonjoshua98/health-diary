@@ -11,14 +11,14 @@ import { RootView } from "../styles/Styles.js"
 
 import NavigationBar from "../components/NavigationBar.js"
 
-const DIARY_KEY = "@app-diary-5"
+import Constants from "../common/constants.js"
 
 export default class Diary extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      entries: null
+      entries: []
     };
   }
 
@@ -41,33 +41,21 @@ export default class Diary extends React.Component {
 
    LoadEntries = async () =>
    {
-     var entries = await AsyncStorage.getItem(DIARY_KEY);
+     var entries = await AsyncStorage.getItem(Constants.DiaryKey);
 
-     if (entries === null)
-     {
-       entries = {entries: []};
-     }
-     else
-     {
-       entries = JSON.parse(entries);
-     }
+     entries = JSON.parse(entries);
 
-     this.setState((state) => { return {entries: entries}; });
+     this.setState( {entries: entries || [] } );
    }
 
    RenderDiaryEntries()
    {
      this.LoadEntries();
 
-     if (this.state.entries === null)
-     {
-       return;
-     }
-
      var entries = [];
 
-     for (var i = 0; i < this.state.entries.entries.length; i++) {
-       var e = this.state.entries.entries[i];
+     for (var i = 0; i < this.state.entries.length; i++) {
+       var e = this.state.entries[i];
 
        entries.push(<DiaryEntry key={i} text={e.Text} date={e.Date} location={e.Location} rating={"Rating: " + (parseInt(e.Rating) + 1)}/>);
      }

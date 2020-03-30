@@ -11,30 +11,25 @@ import RatingOption from "../components/RatingOption.js"
 
 import { RootView, DiaryEntryView, RatingButton, ColumnRow } from "../styles/Styles.js"
 
+import Constants from "../common/constants.js"
+
 import Geocode from "react-geocode";
 
-import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-
-const DIARY_KEY = "@app-diary-5"
 
 export default class CreateDiaryEntry extends React.Component {
   constructor(props) {
     super(props)
 
+    Geocode.setApiKey("AIzaSyDFIRntSQKV27tuktCvwNr4LVUqT5X7BGQ");
+
     this.state = {
       Text: "",
-      location: null
+      Location: null
     }
 
-    if (Platform.OS === 'android' && !Constants.isDevice) {
-
-    }
-    else
-    {
-      this.getLocationAsync();
-    }
+    this.SetState_Location();
   }
 
   render() {
@@ -68,70 +63,67 @@ export default class CreateDiaryEntry extends React.Component {
 
      else
      {
-       this.AppendEntry();
+       this.SaveDiaryEntry();
 
        this.props.navigation.navigate("Diary")
      }
    }
 
-   getLocationAsync = async () => {
+   async SetState_Location()
+   {
      let { status } = await Permissions.askAsync(Permissions.LOCATION);
 
      if (status !== 'granted') {
-       return;
+       return alert("Location Permission Not granted")
      }
 
      var location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
 
-     // Google maps
-     Geocode.setApiKey("AIzaSyDFIRntSQKV27tuktCvwNr4LVUqT5X7BGQ");
-
      Geocode.fromLatLng(location.coords.latitude, location.coords.longitude)
      .then( response => {
-       var loc = response.results[0].formatted_address;
-       var split = loc.split(",")
+       var addr = response.results[0].formatted_address;
 
-       var city = split[1].split(" ")[1]
+       var city = addr.split(",")[1].split(" ")[1]
 
-       this.setState((state) => { return {location: split[0] + ", " + city };
-     });
+       this.setState({Location: city });
+
    }).catch((error) => { console.log('geocode error: ' + error); })
  };
 
-   AppendEntry = async () =>
+   async SaveDiaryEntry()
    {
-     var entries = await AsyncStorage.getItem(DIARY_KEY);
+     var entries = await AsyncStorage.getItem(Constants.DiaryKey);
 
-     if (entries === null)
-     {
-       entries = {entries: []};
-     }
-     else
-     {
-       entries = JSON.parse(entries);
-     }
+     entries = JSON.parse(entries) || [];
 
-     var text = this.state.Text;
-     var rating = this.refs.options.GetRating();
-     var loc = this.state.location
+     entries.push(
+       {
+         Text: this.state.Text,
+         Rating: this.refs.options.GetRating(),
+         Date: this.GetDateString(),
+         Location: this.state.Location
+        }
+      )
 
-     var today = new Date();
-     var dd = String(today.getDate()).padStart(2, '0');
-     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-     var yyyy = today.getFullYear();
-
-     var date = dd + '/' + mm + '/' + yyyy;
-
-     entries["entries"].push({Text: text, Rating: rating, Date: date, Location: loc})
-
-     await AsyncStorage.setItem(DIARY_KEY, JSON.stringify(entries));
+     await AsyncStorage.setItem(Constants.DiaryKey, JSON.stringify(entries));
    }
 
-   OnTextUpdate = (e) =>
+   GetDateString()
+   {
+     var today = new Date();
+
+     var dd = String(today.getDate()).padStart(2, '0');
+     var mm = String(today.getMonth() + 1).padStart(2, '0');
+     var yyyy = today.getFullYear();
+
+     return dd + '/' + mm + '/' + yyyy;
+   }
+
+   OnTextUpdate(e)
    {
      var v = e.nativeEvent.text
 
-     this.setState((state) => { return {Text: v}; });
+     this.setState( {Text: v} );
    }
  }
 
