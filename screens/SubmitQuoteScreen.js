@@ -22,14 +22,13 @@ export default class SubmitQuoteScreen extends React.Component {
   render() {
      return (
        <RootView>
-         <StyledView>
-          <TextInput style={MyStyleSheet.TextInput} onChange={e => this.OnQuoteTextUpdate(e)}/>
 
-          <BigButton text="Submit" background="#FF9900" onPress={() => this.OnQuoteSubmit()}/>
+          <StyledView>
+              <TextInput style={MyStyleSheet.TextInput} onChange={e => this.OnQuoteTextUpdate(e)}/>
+              <BigButton text="Submit" background="#FF9900" onPress={() => this.OnQuoteSubmit()}/>
+          </StyledView>
 
-         </StyledView>
-
-         <NavigationBar nav={this.props.navigation}/>
+          <NavigationBar nav={this.props.navigation}/>
 
        </RootView>
      )
@@ -44,19 +43,17 @@ export default class SubmitQuoteScreen extends React.Component {
 
    OnQuoteSubmit()
    {
-     if (this.state.quote.length < 12)
-     {
-       return;
-     }
-
-     fetch('http://192.168.0.74:5000/set/', {
+     fetch('https://cpd-nixon.herokuapp.com/set/', {
        method: "POST",
        headers: {'Content-Type': 'application/json'},
        body: JSON.stringify({"Text": this.state.quote})
      })
      .then(response => { if (response.status == 200) { this.props.navigation.navigate("Quotes"); } })
 
-     .catch((error) => { console.log('network error: ' + error); })
+     .catch((error) => {
+       console.log('network error: ' + error);
+       alert(error);
+     })
    }
  }
 

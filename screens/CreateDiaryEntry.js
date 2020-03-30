@@ -11,7 +11,13 @@ import RatingOption from "../components/RatingOption.js"
 
 import { RootView, DiaryEntryView, RatingButton, ColumnRow } from "../styles/Styles.js"
 
-const DIARY_KEY = "@app-diary-2"
+import Geocode from "react-geocode";
+
+import Constants from 'expo-constants';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
+
+const DIARY_KEY = "@app-diary-5"
 
 export default class CreateDiaryEntry extends React.Component {
   constructor(props) {
@@ -19,6 +25,15 @@ export default class CreateDiaryEntry extends React.Component {
 
     this.state = {
       Text: "",
+      location: null
+    }
+
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+
+    }
+    else
+    {
+      this.getLocationAsync();
     }
   }
 
@@ -27,7 +42,7 @@ export default class CreateDiaryEntry extends React.Component {
        <RootView>
 
         <DiaryEntryView>
-          <TextInput style={MyStyleSheet.TextInput} onChange={e => this.OnTextUpdate(e)}/>
+          <TextInput style={MyStyleSheet.TextInput} multiline={true} onChange={e => this.OnTextUpdate(e)}/>
 
           <RatingOption ref="options"/>
 
@@ -53,11 +68,35 @@ export default class CreateDiaryEntry extends React.Component {
 
      else
      {
-         this.AppendEntry();
+       this.AppendEntry();
 
-         this.props.navigation.navigate("Diary")
-       }
+       this.props.navigation.navigate("Diary")
+     }
    }
+
+   getLocationAsync = async () => {
+     let { status } = await Permissions.askAsync(Permissions.LOCATION);
+
+     if (status !== 'granted') {
+       return;
+     }
+
+     var location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
+
+     // Google maps
+     Geocode.setApiKey("AIzaSyDFIRntSQKV27tuktCvwNr4LVUqT5X7BGQ");
+
+     Geocode.fromLatLng(location.coords.latitude, location.coords.longitude)
+     .then( response => {
+       var loc = response.results[0].formatted_address;
+       var split = loc.split(",")
+
+       var city = split[1].split(" ")[1]
+
+       this.setState((state) => { return {location: split[0] + ", " + city };
+     });
+   }).catch((error) => { console.log('geocode error: ' + error); })
+ };
 
    AppendEntry = async () =>
    {
@@ -74,19 +113,18 @@ export default class CreateDiaryEntry extends React.Component {
 
      var text = this.state.Text;
      var rating = this.refs.options.GetRating();
+     var loc = this.state.location
 
      var today = new Date();
      var dd = String(today.getDate()).padStart(2, '0');
      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
      var yyyy = today.getFullYear();
 
-     var date = mm + '/' + dd + '/' + yyyy;
+     var date = dd + '/' + mm + '/' + yyyy;
 
-     entries["entries"].push({Text: text, Rating: rating, Date: date})
+     entries["entries"].push({Text: text, Rating: rating, Date: date, Location: loc})
 
      await AsyncStorage.setItem(DIARY_KEY, JSON.stringify(entries));
-
-     console.log(entries);
    }
 
    OnTextUpdate = (e) =>

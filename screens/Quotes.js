@@ -24,10 +24,13 @@ export default class Quotes extends React.Component {
 
   FetchQuotes()
   {
-    fetch('http://192.168.0.74:5000/get/', { method: "GET" })
+    fetch('https://cpd-nixon.herokuapp.com/get/', { method: "GET" })
     .then(response => response.json())
     .then(json => this.setState({quotes: json}) )
-    .catch((error) => { console.log('network error: ' + error); })
+    .catch((error) => {
+      console.log('network error: ' + error);
+      alert(error);
+    })
   }
 
   render() {

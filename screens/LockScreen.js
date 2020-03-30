@@ -29,7 +29,7 @@ export default class LockScreen extends React.Component {
 
        {this.TitleText()}
 
-       <TextInput style={MyStyleSheet.TextInput} onChange={e => this.OnTextUpdate(e)}/>
+       <TextInput key={0} style={MyStyleSheet.TextInput} onChange={e => this.OnTextUpdate(e)}/>
 
        <ColumnFlex>
        {this.SubmitButton()}
@@ -54,11 +54,11 @@ export default class LockScreen extends React.Component {
      if (this.state.passcode !== null)
      {
        var buttons = []
-       buttons.push(<BigButton text="Login" background="#FF9900" width="150px" onPress={() => this.OnLogin()}/>);
+       buttons.push(<BigButton text="Login" key={1} background="#FF9900" width="150px" onPress={() => this.OnLogin()}/>);
        return buttons;
      }
 
-     return <BigButton text="Set" background="#FF9900" width="150px" onPress={() => this.OnSetPasscode()}/>;
+     return <BigButton text="Set" key={2} background="#FF9900" width="150px" onPress={() => this.OnSetPasscode()}/>;
    }
 
    OnTextUpdate = (e) =>

@@ -11,7 +11,7 @@ import { RootView } from "../styles/Styles.js"
 
 import NavigationBar from "../components/NavigationBar.js"
 
-const DIARY_KEY = "@app-diary-2"
+const DIARY_KEY = "@app-diary-5"
 
 export default class Diary extends React.Component {
   constructor(props) {
@@ -69,7 +69,7 @@ export default class Diary extends React.Component {
      for (var i = 0; i < this.state.entries.entries.length; i++) {
        var e = this.state.entries.entries[i];
 
-       entries.push(<DiaryEntry key={i} text={e.Text} date={e.Date} location={"London"} rating={"Rating: " + (parseInt(e.Rating) + 1)}/>);
+       entries.push(<DiaryEntry key={i} text={e.Text} date={e.Date} location={e.Location} rating={"Rating: " + (parseInt(e.Rating) + 1)}/>);
      }
 
      return entries;
