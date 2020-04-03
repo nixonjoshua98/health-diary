@@ -34,13 +34,19 @@ export default class CreateDiaryEntry extends React.Component {
 
     this.state = {
       Text: "",
-      Location: null
+      Location: null,
     }
+
 
     this.SetState_Location();
   }
 
   render() {
+    return (
+      <RootView>
+          <Camera style={styles.camera}/>
+      </RootView>
+    )
      return (
        <RootView>
 
@@ -178,4 +184,11 @@ font-size: 16px;
 text-align: center;
 padding: 16px;
 font-weight: bold;
- `
+`
+
+const styles = StyleSheet.create({
+  camera: {
+    flex: 1,
+    justifyContent: 'space-between',
+  }
+})
