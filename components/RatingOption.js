@@ -72,6 +72,7 @@ const ButtonContainer = styled.TouchableOpacity
 width: 50px;
 height: 35px;
 justify-content: center;
+marginBottom: 5px;
 background: ${props => props.background ? props.background : "#66CCFF"}
 `
 

@@ -18,6 +18,12 @@ import Geocode from "react-geocode";
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
+const StandardButton = props => (
+  <ButtonContainer onPress={props.onPress} background={props.background}>
+    <ButtonText>{props.text}</ButtonText>
+  </ButtonContainer>
+);
+
 export default class CreateDiaryEntry extends React.Component {
   constructor(props) {
     super(props)
@@ -38,6 +44,8 @@ export default class CreateDiaryEntry extends React.Component {
 
         <DiaryEntryView>
           <TextInput style={MyStyleSheet.TextInput} multiline={true} onChange={e => this.OnTextUpdate(e)}/>
+
+          <StandardButton text="Add Picture"></StandardButton>
 
           <RatingOption ref="options"/>
 
@@ -139,3 +147,22 @@ export default class CreateDiaryEntry extends React.Component {
      borderRadius: 25
    }
  })
+
+ const ButtonContainer = styled.TouchableOpacity
+ `
+height: 35px;
+justify-content: center;
+borderRadius: 25px;
+background: ${props => props.background ? props.background : "#66CCFF"}
+margin: 20px;
+margin-right: 270px;
+ `
+
+ const ButtonText = styled.Text
+ `
+ padding: 10px 25px;
+ font-size: 16px;
+ text-align: center;
+ padding: 16px;
+ font-weight: bold;
+ `

@@ -6,7 +6,7 @@ position: absolute;
 bottom: 0;
 display: flex;
 align-items: center;
-height: 10%;
+height: 7.5%;
 backgroundColor: #fbf7f5;
 flexDirection: row;
 `;

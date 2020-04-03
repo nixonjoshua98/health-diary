@@ -22,7 +22,10 @@ const DiaryEntry = props => (
 
     </TextView>
 
-    <StyledImage source={ require("../assets/Panda.jpg") }/>
+    {
+      props.image === null ?
+      <StyledImage source={ require("../assets/Panda.jpg") }/> : null
+    }
 
   </DiaryEntryView>
 );
