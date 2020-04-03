@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styled from 'styled-components';
+
 // Native components
 import { ScrollView } from 'react-native';
 
@@ -9,7 +11,7 @@ import Quote from "../components/Quote";
 
 import NavigationBar from "../components/NavigationBar.js"
 
-import { RootView, ColumnRow } from "../styles/Styles.js"
+import { RootView } from "../styles/Styles.js"
 
 export default class Quotes extends React.Component {
   constructor(props) {
@@ -41,8 +43,8 @@ export default class Quotes extends React.Component {
           </ScrollView>
 
           <ColumnRow>
-            <BigButton text="Create a Quote!" background="#FF9900" onPress={() => this.props.navigation.push("SubmitQuoteScreen")}/>
-            <BigButton text="Refresh Quotes" background="#FF9900" onPress={() => this.OnQuoteRefresh()}/>
+            <BigButton text="Create a Quote!" width="150px" background="#FF9900" onPress={() => this.props.navigation.push("SubmitQuoteScreen")}/>
+            <BigButton text="Refresh Quotes" width="150px" background="#FF9900" onPress={() => this.OnQuoteRefresh()}/>
           </ColumnRow>
 
           <NavigationBar nav={this.props.navigation}/>
@@ -79,3 +81,8 @@ export default class Quotes extends React.Component {
      return temp
    }
  }
+
+ const ColumnRow = styled.View
+ `
+ flexDirection: row;
+ `

@@ -15,6 +15,8 @@ import Constants from "../common/constants.js"
 
 import Geocode from "react-geocode";
 
+import { Camera } from 'expo-camera';
+
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
@@ -45,7 +47,7 @@ export default class CreateDiaryEntry extends React.Component {
         <DiaryEntryView>
           <TextInput style={MyStyleSheet.TextInput} multiline={true} onChange={e => this.OnTextUpdate(e)}/>
 
-          <StandardButton text="Add Picture"></StandardButton>
+          <StandardButton text="Add Picture" onPress={() => this.OnAddPicture()}></StandardButton>
 
           <RatingOption ref="options"/>
 
@@ -55,6 +57,19 @@ export default class CreateDiaryEntry extends React.Component {
          <NavigationBar nav={this.props.navigation}/>
        </RootView>
      )
+   }
+
+   async OnAddPicture()
+   {
+     const { status } = await Permissions.askAsync(Permissions.CAMERA);
+
+     if (status !== 'granted')
+     {
+       alert("Camera permission is a requirement to add a picture");
+     }
+     else {
+
+     }
    }
 
    OnEntrySubmit()
@@ -155,14 +170,12 @@ justify-content: center;
 borderRadius: 25px;
 background: ${props => props.background ? props.background : "#66CCFF"}
 margin: 20px;
-margin-right: 270px;
  `
 
- const ButtonText = styled.Text
- `
- padding: 10px 25px;
- font-size: 16px;
- text-align: center;
- padding: 16px;
- font-weight: bold;
+const ButtonText = styled.Text
+`
+font-size: 16px;
+text-align: center;
+padding: 16px;
+font-weight: bold;
  `
