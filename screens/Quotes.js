@@ -14,6 +14,8 @@ import NavigationBar from "../components/NavigationBar.js"
 import { RootView } from "../styles/Styles.js"
 
 export default class Quotes extends React.Component {
+  _isMounted = false
+
   constructor(props) {
     super(props)
 
@@ -21,14 +23,26 @@ export default class Quotes extends React.Component {
       quotes: null
     }
 
-    this.FetchQuotes();
+    this.componentMounted();
   }
+
+  componentMounted()
+  {
+    this._isMounted = true
+
+    this.FetchQuotes();
+}
 
   FetchQuotes()
   {
     fetch('https://cpd-nixon.herokuapp.com/get/', { method: "GET" })
     .then(response => response.json())
-    .then(json => this.setState({quotes: json}) )
+    .then(json => {
+      if (this._isMounted)
+      {
+        this.setState({quotes: json})
+      }
+    })
     .catch((error) => {
       console.log('network error: ' + error);
       alert(error);

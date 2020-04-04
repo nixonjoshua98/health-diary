@@ -24,7 +24,7 @@ const DiaryEntry = props => (
 
     {
       props.image === null ?
-      <StyledImage source={ require("../assets/Panda.jpg") }/> : null
+      null : <StyledImage source={{ uri: props.image }}/>
     }
 
   </DiaryEntryView>
@@ -47,7 +47,7 @@ flex-direction: column;
 
 background: #0099CC;
 height: 100%;
-width: 75%;
+width: 65%;
 
 justify-content: space-between;
 `;
@@ -78,9 +78,10 @@ margin: 5px;
 const StyledImage = styled.Image
 `
 width: 100px;
-margin: 5px;
+margin: 10px;
 height: 100px
 borderWidth: 3px;
+alignSelf: center;
 borderColor: white
 `;
 

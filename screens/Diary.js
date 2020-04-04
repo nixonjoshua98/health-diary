@@ -57,7 +57,7 @@ export default class Diary extends React.Component {
      for (var i = 0; i < this.state.entries.length; i++) {
        var e = this.state.entries[i];
 
-       entries.push(<DiaryEntry key={i} text={e.Text} date={e.Date} location={e.Location} rating={"Rating: " + (parseInt(e.Rating) + 1)}/>);
+       entries.push(<DiaryEntry image={e.Image} key={i} text={e.Text} date={e.Date} location={e.Location} rating={"Rating: " + (parseInt(e.Rating) + 1)}/>);
      }
 
      return entries;

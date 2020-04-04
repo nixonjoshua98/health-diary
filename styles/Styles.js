@@ -18,6 +18,12 @@ height: 100%;
 backgroundColor: #fbf7f5;
 `;
 
+const CameraView = styled.View
+`
+flex: 1;
+backgroundColor: #fbf7f5;
+`;
+
 const LockView = styled.View
 `
 flex: 1;
@@ -43,4 +49,4 @@ const ColumnFlex = styled.View
 flexDirection: column;
 `
 
-export { NavigationView, RootView, LockView, ColumnRow, ColumnFlex, DiaryEntryView };
+export { NavigationView, RootView, LockView, ColumnRow, ColumnFlex, DiaryEntryView, CameraView };

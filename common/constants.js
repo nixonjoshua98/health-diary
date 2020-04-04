@@ -2,7 +2,7 @@
 
 const Constants = {
   PasswordKey: "@CPD-Login-2",
-  DiaryKey: "@CPD-Diary-3"
+  DiaryKey: "@CPD-Diary-4"
 }
 
 export default Constants;

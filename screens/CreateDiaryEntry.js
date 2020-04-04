@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { TextInput, StyleSheet, AsyncStorage }  from "react-native"
+
+import * as ImagePicker from 'expo-image-picker';
+
+import { TextInput, StyleSheet, AsyncStorage, Image }  from "react-native"
 
 import BigButton from "../components/BigButton"
 
@@ -8,14 +11,15 @@ import styled from 'styled-components';
 
 import NavigationBar from "../components/NavigationBar.js"
 import RatingOption from "../components/RatingOption.js"
+import PhotoGallery from "../components/PhotoGallery.js"
 
 import { RootView, DiaryEntryView, RatingButton, ColumnRow } from "../styles/Styles.js"
+
+import {default as ExpoConstants} from 'expo-constants';
 
 import Constants from "../common/constants.js"
 
 import Geocode from "react-geocode";
-
-import { Camera } from 'expo-camera';
 
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -35,48 +39,59 @@ export default class CreateDiaryEntry extends React.Component {
     this.state = {
       Text: "",
       Location: null,
+      image: null
     }
-
 
     this.SetState_Location();
   }
 
   render() {
-    return (
-      <RootView>
-          <Camera style={styles.camera}/>
-      </RootView>
-    )
-     return (
-       <RootView>
+    let { image } = this.state;
 
-        <DiaryEntryView>
-          <TextInput style={MyStyleSheet.TextInput} multiline={true} onChange={e => this.OnTextUpdate(e)}/>
+      return (
+        <RootView>
 
-          <StandardButton text="Add Picture" onPress={() => this.OnAddPicture()}></StandardButton>
+         <DiaryEntryView>
+           <TextInput style={MyStyleSheet.TextInput} multiline={true} onChange={e => this.OnTextUpdate(e)}/>
 
-          <RatingOption ref="options"/>
+           <StandardButton text="Add Picture" onPress={() => this._pickImage()}></StandardButton>
 
-          <BigButton text="Add Entry" background="#FF9900" width="150px" onPress={() => this.OnEntrySubmit()}/>
-        </DiaryEntryView>
+           <RatingOption ref="options"/>
 
-         <NavigationBar nav={this.props.navigation}/>
-       </RootView>
-     )
-   }
+           <BigButton text="Add Entry" background="#FF9900" width="150px" onPress={() => this.OnEntrySubmit()}/>
+         </DiaryEntryView>
 
-   async OnAddPicture()
-   {
-     const { status } = await Permissions.askAsync(Permissions.CAMERA);
+         {image && <Image source={{ uri: image }} style={{ alignSelf: 'center', width: 200, height: 200 }} />}
 
-     if (status !== 'granted')
+          <NavigationBar nav={this.props.navigation}/>
+        </RootView>
+      )
+    }
+
+   _pickImage = async () => {
+     if (ExpoConstants.platform.ios)
      {
-       alert("Camera permission is a requirement to add a picture");
+       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+       if (status !== 'granted') {
+         alert('Sorry, we need camera roll permissions to make this work!');
+       }
+     }
+
+     let result = await ImagePicker.launchImageLibraryAsync({
+       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+       allowsEditing: true,
+       aspect: [1, 1],
+       quality: 1
+     });
+
+     if (!result.cancelled) {
+       this.setState({ image: result.uri });
      }
      else {
-
+       this.setState({ image: null });
      }
-   }
+   };
 
    OnEntrySubmit()
    {
@@ -130,7 +145,8 @@ export default class CreateDiaryEntry extends React.Component {
          Text: this.state.Text,
          Rating: this.refs.options.GetRating(),
          Date: this.GetDateString(),
-         Location: this.state.Location
+         Location: this.state.Location,
+         Image: this.state.image
         }
       )
 
@@ -163,7 +179,7 @@ export default class CreateDiaryEntry extends React.Component {
      fontWeight: "bold",
      fontSize: 16,
      width: "85%",
-     height: "50%",
+     height: "35%",
      marginBottom: 10,
      borderRadius: 25
    }
@@ -185,10 +201,3 @@ text-align: center;
 padding: 16px;
 font-weight: bold;
 `
-
-const styles = StyleSheet.create({
-  camera: {
-    flex: 1,
-    justifyContent: 'space-between',
-  }
-})
