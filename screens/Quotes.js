@@ -72,6 +72,11 @@ export default class Quotes extends React.Component {
      this.FetchQuotes();
    }
 
+   UNSAFE_componentWillMount()
+   {
+     this.FetchQuotes();
+   }
+
    renderQuotes()
    {
      var temp = []

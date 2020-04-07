@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styled from 'styled-components';
-
 import { Image }  from "react-native"
+
+import styled from 'styled-components';
 
 const DiaryEntry = props => (
   <DiaryEntryView>
@@ -77,9 +77,9 @@ margin: 5px;
 
 const StyledImage = styled.Image
 `
-width: 100px;
-margin: 10px;
-height: 100px
+width: 125px;
+margin: 3.5%;
+height: 125px
 borderWidth: 3px;
 alignSelf: center;
 borderColor: white

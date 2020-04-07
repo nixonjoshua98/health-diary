@@ -11,7 +11,6 @@ import styled from 'styled-components';
 
 import NavigationBar from "../components/NavigationBar.js"
 import RatingOption from "../components/RatingOption.js"
-import PhotoGallery from "../components/PhotoGallery.js"
 
 import { RootView, DiaryEntryView, RatingButton, ColumnRow } from "../styles/Styles.js"
 
