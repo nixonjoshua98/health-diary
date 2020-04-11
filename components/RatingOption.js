@@ -36,17 +36,19 @@ export default class RatingOption extends React.Component
   {
     var buttons = [];
 
-    buttons.push(<Rating key={0} text="1" onPress={() => this.OnPress(0)}/>);
-    buttons.push(<Rating key={1} text="2" onPress={() => this.OnPress(1)}/>);
-    buttons.push(<Rating key={2} text="3" onPress={() => this.OnPress(2)}/>);
-    buttons.push(<Rating key={3} text="4" onPress={() => this.OnPress(3)}/>);
-    buttons.push(<Rating key={4} text="5" onPress={() => this.OnPress(4)}/>);
+    var buttonText = ["Bad", "Meh", "OK", "Good", "Best"]
+
+    buttons.push(<Rating key={0} text={buttonText[0]} onPress={() => this.OnPress(0)}/>);
+    buttons.push(<Rating key={1} text={buttonText[1]} onPress={() => this.OnPress(1)}/>);
+    buttons.push(<Rating key={2} text={buttonText[2]} onPress={() => this.OnPress(2)}/>);
+    buttons.push(<Rating key={3} text={buttonText[3]} onPress={() => this.OnPress(3)}/>);
+    buttons.push(<Rating key={4} text={buttonText[4]} onPress={() => this.OnPress(4)}/>);
 
     if (this.state.rating !== null)
     {
       buttons[this.state.rating] = <Rating
                                     key={this.state.rating}
-                                    text={this.state.rating + 1}
+                                    text={buttonText[this.state.rating]}
                                     background="#0099CC"
                                     onPress={() => this.OnPress(this.state.rating)}/>;
     }
@@ -69,7 +71,7 @@ export default class RatingOption extends React.Component
 
 const ButtonContainer = styled.TouchableOpacity
 `
-width: 50px;
+width: 75px;
 height: 35px;
 justify-content: center;
 marginBottom: 5px;

@@ -57,7 +57,7 @@ export default class CreateDiaryEntry extends React.Component {
 
            <RatingOption ref="options"/>
 
-           <BigButton text="Add Entry" background="#FF9900" width="150px" onPress={() => this.OnEntrySubmit()}/>
+           <BigButton text="Add Entry" background="#FF9900" onPress={() => this.OnEntrySubmit()}/>
          </DiaryEntryView>
 
          {image && <Image source={{ uri: image }} style={{ alignSelf: 'center', width: 200, height: 200 }} />}

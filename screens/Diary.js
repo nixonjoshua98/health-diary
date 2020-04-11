@@ -39,6 +39,12 @@ export default class Diary extends React.Component {
      )
    }
 
+   componentWillUnmount() {
+     this.setState = (state, callback) => {
+       return;
+     };
+   }
+
    LoadEntries = async () =>
    {
      var entries = await AsyncStorage.getItem(Constants.DiaryKey);
@@ -52,12 +58,14 @@ export default class Diary extends React.Component {
    {
      var entries = [];
 
+     var buttonText = ["Bad", "Meh", "OK", "Good", "Best"];
+
      this.LoadEntries();
 
      for (var i = this.state.entries.length - 1; i > 0; i--) {
        var e = this.state.entries[i];
 
-       entries.push(<DiaryEntry image={e.Image} key={i} text={e.Text} date={e.Date} location={e.Location} rating={"Rating: " + (parseInt(e.Rating) + 1)}/>);
+       entries.push(<DiaryEntry image={e.Image} key={i} text={e.Text} date={e.Date} location={e.Location} rating={buttonText[parseInt(e.Rating)]}/>);
      }
 
      return entries;

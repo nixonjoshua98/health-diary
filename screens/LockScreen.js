@@ -37,8 +37,8 @@ export default class LockScreen extends React.Component {
 
           {
             NewUser ?
-            <BigButton text="Set" key={2} background="#FF9900" width="150px" onPress={() => this.OnSetNewPassword()}/>
-            : <BigButton text="Login" key={1} background="#FF9900" width="150px" onPress={() => this.OnLogin()}/>
+            <BigButton text="Set" key={2} background="#FF9900" onPress={() => this.OnSetNewPassword()}/>
+            : <BigButton text="Login" key={1} background="#FF9900" onPress={() => this.OnLogin()}/>
           }
       </LockView>
     )
@@ -62,7 +62,7 @@ export default class LockScreen extends React.Component {
    {
      if (this.state.EnteredHash === this.state.SavedHash)
      {
-       this.props.navigation.navigate("Diary")
+       this.props.navigation.push("Diary")
      }
    }
 

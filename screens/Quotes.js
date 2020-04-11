@@ -31,7 +31,13 @@ export default class Quotes extends React.Component {
     this._isMounted = true
 
     this.FetchQuotes();
-}
+  }
+
+  componentWillUnmount() {
+    this.setState = (state, callback)=> {
+      return;
+    };
+  }
 
   FetchQuotes()
   {
@@ -44,7 +50,6 @@ export default class Quotes extends React.Component {
       }
     })
     .catch((error) => {
-      console.log('network error: ' + error);
       alert(error);
     })
   }

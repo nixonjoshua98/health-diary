@@ -77,12 +77,8 @@ margin: 5px;
 
 const StyledImage = styled.Image
 `
-width: 125px;
-margin: 3.5%;
-height: 125px
-borderWidth: 3px;
-alignSelf: center;
-borderColor: white
+width: 35%;
+height: 100%;
 `;
 
 const Header = styled.View
