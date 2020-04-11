@@ -30,11 +30,11 @@ export default class EditEntryScreen extends React.Component {
     this.state = {
       Text: "",
       Location: null,
-      Image: null,
-
+      image: null,
       DiaryID: this.props.navigation.getParam("ID"),
-
     };
+
+    this.LoadData();
   }
 
   async LoadData()
@@ -45,17 +45,19 @@ export default class EditEntryScreen extends React.Component {
 
     var entry = entries[this.state.DiaryID];
 
-    self.setState(
+    console.log(entry);
+
+    this.setState(
       {
         Text: entry.Text,
-        Image: entry.Image,
+        image: entry.Image,
         Location: entry.Location
       }
     );
   }
 
   render() {
-    let { Image } = this.state;
+    let { image } = this.state;
 
       return (
         <RootView>
@@ -63,14 +65,14 @@ export default class EditEntryScreen extends React.Component {
          <DiaryEntryView>
            <TextInput style={MyStyleSheet.TextInput} multiline={true} onChange={e => this.OnTextUpdate(e)}/>
 
-           <BigButton text="Add Picture" width="150px" background="#0099CC"/>
+           <BigButton text="Change Picture" width="150px" background="#0099CC"/>
 
            <RatingOption ref="options"/>
 
-           <BigButton text="Add Entry" background="#FF9900" onPress={() => this.OnEntrySubmit()}/>
+           <BigButton text="Update Entry" background="#FF9900" onPress={() => this.OnEntrySubmit()}/>
          </DiaryEntryView>
 
-         {Image && <Image source={{ uri: Image }} style={{ alignSelf: 'center', width: 200, height: 200 }} />}
+         {Image && <Image source={{ uri: image }} style={{ alignSelf: 'center', width: 200, height: 200 }} />}
 
           <NavigationBar nav={this.props.navigation}/>
         </RootView>
