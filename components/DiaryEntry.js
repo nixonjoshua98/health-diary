@@ -4,6 +4,8 @@ import { Image }  from "react-native"
 
 import styled from 'styled-components';
 
+import BigButton from "../components/BigButton"
+
 const DiaryEntry = props => (
   <DiaryEntryView>
 
@@ -11,7 +13,8 @@ const DiaryEntry = props => (
 
       <Header>
         <Date>{props.date}</Date>
-        </Header>
+        <Button text="Edit" width="50px" onPress={props.onPress}/>
+      </Header>
 
       <DiaryText>{props.text}</DiaryText>
 
@@ -40,6 +43,31 @@ background: #66CCFF;
 align-items: center;
 margin: 5px;
 `;
+
+const Button = props => (
+  <ButtonContainer background={props.background} width={props.width} onPress={props.onPress}>
+    <ButtonText>{props.text}</ButtonText>
+  </ButtonContainer>
+);
+
+const ButtonContainer = styled.TouchableOpacity
+`
+width: ${props => props.width ? props.width : "200px"}
+height: 20px;
+border-radius: 15px;
+justify-content: center;
+margin: 0px;
+
+background: ${props => props.background ? props.background : "#FF9900"}
+`
+
+const ButtonText = styled.Text
+`
+font-size: 10px;
+text-align: center;
+font-weight: bold;
+`
+
 
 const TextView = styled.View
 `
@@ -89,6 +117,7 @@ height: 20px;
 flex-direction: row;
 background: white;
 align-items: center;
+justify-content: space-between;
 border-radius: 10px;
 `;
 

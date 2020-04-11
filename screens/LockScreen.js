@@ -17,7 +17,9 @@ export default class LockScreen extends React.Component {
     this.state = {
       SavedHash: null,
       EnteredHash: null,
-      NewUser: false
+      NewUser: false,
+
+      LoggedIn: false
     };
 
     this.SetState_SavedHash_NewUser();
@@ -62,7 +64,7 @@ export default class LockScreen extends React.Component {
    {
      if (this.state.EnteredHash === this.state.SavedHash)
      {
-       this.props.navigation.push("Diary")
+       this.props.navigation.push("MentalHealthDiary")
      }
    }
 

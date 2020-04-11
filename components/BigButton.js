@@ -17,7 +17,7 @@ width: ${props => props.width ? props.width : "200px"}
 height: 35px;
 border-radius: 15px;
 justify-content: center;
-margin: 10px auto 10px auto;
+margin: 5px auto 5px auto;
 
 background: ${props => props.background ? props.background : "grey"}
 `

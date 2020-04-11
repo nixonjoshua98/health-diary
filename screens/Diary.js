@@ -6,7 +6,6 @@ import { ScrollView, AsyncStorage } from 'react-native';
 import DiaryEntry from "../components/DiaryEntry"
 import BigButton from "../components/BigButton"
 import Quote from "../components/Quote";
-
 import { RootView } from "../styles/Styles.js"
 
 import NavigationBar from "../components/NavigationBar.js"
@@ -18,25 +17,26 @@ export default class Diary extends React.Component {
     super(props)
 
     this.state = {
-      entries: []
+      entries: [],
+
+      LoggedIn: false
     };
   }
 
   render() {
-     return (
-       <RootView>
-          <ScrollView vertical={true}>
+      return (
+        <RootView>
+            <ScrollView vertical={true}>
+                { this.RenderDiaryEntries() }
+            </ScrollView>
 
-          { this.RenderDiaryEntries() }
+           <BigButton text="New Diary Entry" background="#FF9900" onPress={() => this.props.navigation.push("CreateDiaryEntry")}/>
 
-          </ScrollView>
+           <NavigationBar nav={this.props.navigation}/>
 
-          <BigButton text="New Diary Entry" background="#FF9900" onPress={() => this.props.navigation.push("CreateDiaryEntry")}/>
+        </RootView>
+      )
 
-          <NavigationBar nav={this.props.navigation}/>
-
-       </RootView>
-     )
    }
 
    componentWillUnmount() {
@@ -54,6 +54,11 @@ export default class Diary extends React.Component {
      this.setState( {entries: entries || [] } );
    }
 
+   OnEditEntry(i)
+   {
+     this.props.navigation.push("Edit", {ID: i});
+   }
+
    RenderDiaryEntries()
    {
      var entries = [];
@@ -62,12 +67,23 @@ export default class Diary extends React.Component {
 
      this.LoadEntries();
 
-     for (var i = this.state.entries.length - 1; i > 0; i--) {
+     for (let i = this.state.entries.length - 1; i >= 0; i--) {
        var e = this.state.entries[i];
 
-       entries.push(<DiaryEntry image={e.Image} key={i} text={e.Text} date={e.Date} location={e.Location} rating={buttonText[parseInt(e.Rating)]}/>);
+       entries.push(<DiaryEntry
+                        image={e.Image}
+                        key={i}
+                        onPress={() => this.OnEditEntry(i)}
+                        text={e.Text}
+                        date={e.Date}
+                        location={e.Location}
+                        rating={buttonText[parseInt(e.Rating)]}
+                        />
+                    );
      }
 
      return entries;
    }
+
+
  }

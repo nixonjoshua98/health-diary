@@ -53,7 +53,7 @@ export default class CreateDiaryEntry extends React.Component {
          <DiaryEntryView>
            <TextInput style={MyStyleSheet.TextInput} multiline={true} onChange={e => this.OnTextUpdate(e)}/>
 
-           <StandardButton text="Add Picture" onPress={() => this._pickImage()}></StandardButton>
+           <BigButton text="Add Picture" width="150px" background="#0099CC" onPress={() => this._pickImage()}></BigButton>
 
            <RatingOption ref="options"/>
 
@@ -108,7 +108,7 @@ export default class CreateDiaryEntry extends React.Component {
      {
        this.SaveDiaryEntry();
 
-       this.props.navigation.navigate("Diary")
+       this.props.navigation.navigate("MentalHealthDiary")
      }
    }
 
@@ -179,7 +179,6 @@ export default class CreateDiaryEntry extends React.Component {
      fontSize: 16,
      width: "85%",
      height: "35%",
-     marginBottom: 10,
      borderRadius: 25
    }
  })
