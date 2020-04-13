@@ -15,19 +15,18 @@ import CreateDiaryEntry from "./screens/CreateDiaryEntry.js"
 
 const RootStack = createStackNavigator(
   {
-    MentalHealthDiary: { screen: Diary },
+    Diary: { screen: Diary },
     Quotes: { screen: Quotes },
     Stats: { screen: Stats },
 
     Edit: { screen: EditEntryScreen },
-    Lock: { screen: LockScreen, navigationOptions: {header: null} },
 
     SubmitQuoteScreen: { screen: SubmitQuoteScreen },
     CreateDiaryEntry: { screen: CreateDiaryEntry }
   },
 
   {
-    initialRouteName: "MentalHealthDiary",
+    initialRouteName: "Diary",
   }
 );
 

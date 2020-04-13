@@ -108,7 +108,7 @@ export default class CreateDiaryEntry extends React.Component {
      {
        this.SaveDiaryEntry();
 
-       this.props.navigation.navigate("MentalHealthDiary")
+       this.props.navigation.navigate("Diary")
      }
    }
 
