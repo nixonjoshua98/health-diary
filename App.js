@@ -20,14 +20,14 @@ const RootStack = createStackNavigator(
     Stats: { screen: Stats },
 
     Edit: { screen: EditEntryScreen },
-    Lock: { screen: LockScreen },
+    Lock: { screen: LockScreen, navigationOptions: {header: null} },
 
     SubmitQuoteScreen: { screen: SubmitQuoteScreen },
-    CreateDiaryEntry: {screen: CreateDiaryEntry }
+    CreateDiaryEntry: { screen: CreateDiaryEntry }
   },
 
   {
-    initialRouteName: "Lock",
+    initialRouteName: "MentalHealthDiary",
   }
 );
 

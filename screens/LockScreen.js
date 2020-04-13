@@ -18,9 +18,10 @@ export default class LockScreen extends React.Component {
       SavedHash: null,
       EnteredHash: null,
       NewUser: false,
-
       LoggedIn: false
     };
+
+    this.diary = props.diary;
 
     this.SetState_SavedHash_NewUser();
   }
@@ -40,7 +41,7 @@ export default class LockScreen extends React.Component {
           {
             NewUser ?
             <BigButton text="Set" key={2} background="#FF9900" onPress={() => this.OnSetNewPassword()}/>
-            : <BigButton text="Login" key={1} background="#FF9900" onPress={() => this.OnLogin()}/>
+            : <BigButton text="Login" key={1} background="#FF9900" onPress={() => this.AsyncOnLogin()}/>
           }
       </LockView>
     )
@@ -60,17 +61,23 @@ export default class LockScreen extends React.Component {
      this.SetState_SavedHash_NewUser();
    }
 
-   OnLogin()
+   async AsyncOnLogin()
    {
      if (this.state.EnteredHash === this.state.SavedHash)
      {
-       this.props.navigation.push("MentalHealthDiary")
+       this.diary.setState( {LoggedIn: true} );
+
+       await AsyncStorage.setItem(Constants.LoggedInKey, JSON.stringify(true));
+
+       //this.props.navigation.push("MentalHealthDiary")
      }
    }
 
    SetState_SavedHash_NewUser = async () =>
    {
      var v = await AsyncStorage.getItem(Constants.PasswordKey);
+
+     await AsyncStorage.setItem(Constants.LoggedInKey, JSON.stringify(false));
 
      /*
      This is stupid, why can I not simply call two methods from elsehwere without one of them not updating the setState,

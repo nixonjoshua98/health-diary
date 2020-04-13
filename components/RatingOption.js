@@ -64,14 +64,13 @@ export default class RatingOption extends React.Component
 
   OnPress = (key) =>
   {
-    this.setState((state) => { return {rating: key}; });
+    this.setState({rating: key});
   }
 };
 
 
 const ButtonContainer = styled.TouchableOpacity
 `
-width: 75px;
 height: 35px;
 justify-content: center;
 marginTop: 25px;

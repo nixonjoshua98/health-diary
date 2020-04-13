@@ -8,11 +8,14 @@ import BigButton from "../components/BigButton"
 import Quote from "../components/Quote";
 import { RootView } from "../styles/Styles.js"
 
+import LockScreen from "../screens/LockScreen.js"
+
 import NavigationBar from "../components/NavigationBar.js"
 
 import Constants from "../common/constants.js"
 
 export default class Diary extends React.Component {
+
   constructor(props) {
     super(props)
 
@@ -24,6 +27,12 @@ export default class Diary extends React.Component {
   }
 
   render() {
+    if (!this.state.LoggedIn)
+    {
+      return ( <LockScreen diary={this} ref="login"/> )
+    }
+
+    else {
       return (
         <RootView>
             <ScrollView vertical={true}>
@@ -36,7 +45,7 @@ export default class Diary extends React.Component {
 
         </RootView>
       )
-
+    }
    }
 
    componentWillUnmount() {
@@ -84,6 +93,4 @@ export default class Diary extends React.Component {
 
      return entries;
    }
-
-
  }
