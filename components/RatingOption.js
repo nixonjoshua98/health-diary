@@ -20,7 +20,7 @@ export default class RatingOption extends React.Component
 
     this.state = {
       rating: null
-    }
+    };
   }
 
   render()
