@@ -93,7 +93,7 @@ export default class Stats extends React.Component {
 
           <VictoryGroup theme={VictoryTheme.material}>
               <VictoryPie
-                  labelRadius={({ innerRadius }) => innerRadius + 25}
+                  labelRadius={({ innerRadius }) => innerRadius + 20}
                   innerRadius={50}
                   padding={50}
                   margin={{top: 50}}

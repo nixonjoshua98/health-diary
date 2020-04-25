@@ -8,9 +8,9 @@ import NavButton from "../components/NavButton";
 
 const NavigationBar = props => (
   <NavigationView>
-  <NavButton text="Diary" onPress={() => props.nav.navigate("Diary")}/>
-  <NavButton text="Quotes" onPress={() => props.nav.push("Quotes")}/>
-  <NavButton text="Stats" onPress={() => props.nav.push("Stats")}/>
+      <NavButton text="Diary" iconName="book" onPress={() => props.nav.navigate("Diary")}/>
+      <NavButton text="Quotes" iconName="bubble-chart" onPress={() => props.nav.push("Quotes")}/>
+      <NavButton text="Stats" iconName="pie-chart" onPress={() => props.nav.push("Stats")}/>
   </NavigationView>
 );
 
