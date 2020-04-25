@@ -19,10 +19,10 @@ const RootStack = createStackNavigator(
     Quotes: { screen: Quotes },
     Stats: { screen: Stats },
 
-    Edit: { screen: EditEntryScreen },
+    Edit: { screen: EditEntryScreen, navigationOptions: {title: "Edit Diary Entry"} },
 
-    SubmitQuoteScreen: { screen: SubmitQuoteScreen },
-    CreateDiaryEntry: { screen: CreateDiaryEntry }
+    SubmitQuoteScreen: { screen: SubmitQuoteScreen, navigationOptions: {title: "Submit Quote"} },
+    CreateDiaryEntry: { screen: CreateDiaryEntry, navigationOptions: {title: "Create Diary Entry"} }
   },
 
   {

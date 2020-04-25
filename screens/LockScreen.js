@@ -16,9 +16,18 @@ export default class LockScreen extends React.Component {
 
     this.state = {
       SavedHash: null,
+      EnteredPassword: null,
       EnteredHash: null,
       NewUser: false,
-      LoggedIn: false
+      LoggedIn: false,
+
+      ChangingPassword: false,
+
+      CurrentPassword: null,
+      NewPassword: null,
+
+      NewPasswordHash: null,
+      CurrentPasswordHash: null
     };
 
     this.diary = props.diary;
@@ -26,32 +35,127 @@ export default class LockScreen extends React.Component {
     this.SetState_SavedHash_NewUser();
   }
 
-  render() {
+  render() {``
     const NewUser = this.state.NewUser;
+    const ChangingPassword = this.state.ChangingPassword;
 
-    return (
-      <LockView>
-          {
-            NewUser ? <StyledText>Welcome, Set Your Password :)</StyledText>
-            : <StyledText>Welcome Back!</StyledText>
-          }
+    if (ChangingPassword)
+    {
+      return (
+        <LockView>
+            <StyledText>Current Password</StyledText>
+            <TextInput style={MyStyleSheet.PasswordInput} value={this.state.CurrentPassword} onChange={e => this.OnCurrentPasswordTextUpdate(e)}/>
 
-          <TextInput style={MyStyleSheet.PasswordInput} onChange={e => this.OnTextUpdate(e)}/>
+            <StyledText>New Password</StyledText>
+            <TextInput style={MyStyleSheet.PasswordInput} value={this.state.NewPassword} onChange={e => this.OnNewPasswordTextUpdate(e)}/>
 
-          {
-            NewUser ?
-            <BigButton text="Set" key={2} background="#FF9900" onPress={() => this.OnSetNewPassword()}/>
-            : <BigButton text="Login" key={1} background="#FF9900" onPress={() => this.AsyncOnLogin()}/>
-          }
-      </LockView>
-    )
+            <ColumnRow>
+              <BigButton text="Change" key={19} width="100px" background="#FF9900" onPress={() => this.OnConfirmChange()}/>
+              <BigButton text="Cancel" key={20} width="100px" background="#FF9900" onPress={() => this.OnCancelPasswordChange()}/>
+            </ColumnRow>
+
+        </LockView>
+      )
+    }
+
+    else {
+      return (
+        <LockView>
+            {
+              NewUser ? <StyledText>Welcome, Set Your Password :)</StyledText>
+              : <StyledText>Welcome Back!</StyledText>
+            }
+
+            <TextInput style={MyStyleSheet.PasswordInput} value={this.state.EnteredPassword} onChange={e => this.OnTextUpdate(e)}/>
+
+            {
+              NewUser ?
+              <BigButton text="Set" key={2} background="#FF9900" onPress={() => this.OnSetNewPassword()}/>
+              :
+              <BigButton text="Login" key={1} background="#FF9900" onPress={() => this.AsyncOnLogin()}/>
+            }
+            {
+              NewUser ?
+              null
+              :
+              <BigButton text="Change Password" key={2} background="#FF9900" onPress={() => this.OnChangePassword()}/>
+            }
+
+        </LockView>
+      )
+    }
+  }
+
+  OnCurrentPasswordTextUpdate(e)
+  {
+    var hash = this.HashString(e.nativeEvent.text)
+
+    this.setState( {CurrentPassword: hash} );
+  }
+
+  OnNewPasswordTextUpdate(e)
+  {
+    var hash = this.HashString(e.nativeEvent.text)
+
+    this.setState( {NewPassword: e.nativeEvent.text} );
+    this.setState( {NewPasswordHash: hash} );
+  }
+
+  OnCurrentPasswordTextUpdate(e)
+  {
+    var hash = this.HashString(e.nativeEvent.text)
+
+    this.setState( {CurrentPassword: e.nativeEvent.text} );
+    this.setState( {CurrentPasswordHash: hash} );
   }
 
    OnTextUpdate(e)
    {
      var hash = this.HashString(e.nativeEvent.text)
 
+     this.setState( {EnteredPassword: e.nativeEvent.text} );
      this.setState( {EnteredHash: hash} );
+   }
+
+   OnConfirmChange()
+   {
+     if (this.state.CurrentPasswordHash === this.state.SavedHash)
+     {
+       if (this.state.NewPasswordHash == null)
+       {
+         alert("New password cannot be blank")
+         return
+       }
+
+       this.setState({SavedHash: this.state.NewPasswordHash})
+
+       this.ChangePassword();
+
+       this.OnCancelPasswordChange();
+     }
+   }
+
+   async ChangePassword()
+   {
+     await AsyncStorage.setItem(Constants.PasswordKey, this.state.NewPasswordHash);
+   }
+
+   OnCancelPasswordChange()
+   {
+     this.setState({ChangingPassword: false});
+
+     this.setState({CurrentPasswordHash: null})
+     this.setState({CurrentPassword: null})
+
+     this.setState({NewPassword: null} );
+     this.setState({NewPasswordHash: null})
+
+     this.setState({EnteredPassword: null})
+   }
+
+   OnChangePassword()
+   {
+     this.setState({ChangingPassword: true});
    }
 
    OnSetNewPassword()
@@ -68,8 +172,6 @@ export default class LockScreen extends React.Component {
        this.diary.setState( {LoggedIn: true} );
 
        await AsyncStorage.setItem(Constants.LoggedInKey, JSON.stringify(true));
-
-       //this.props.navigation.push("MentalHealthDiary")
      }
    }
 
@@ -79,10 +181,7 @@ export default class LockScreen extends React.Component {
 
      await AsyncStorage.setItem(Constants.LoggedInKey, JSON.stringify(false));
 
-     /*
-     This is stupid, why can I not simply call two methods from elsehwere without one of them not updating the setState,
-     but instead have to use the callback to set something else.
-     */
+
      this.setState( {SavedHash: v}, () => {
        var isNewUser = this.state.SavedHash === null;
 
@@ -123,3 +222,10 @@ export default class LockScreen extends React.Component {
  padding: 16px;
  font-weight: bold;
  `
+
+const ColumnRow = styled.View
+`
+width: 50%;
+flexDirection: row;
+justify-content: space-between;
+`

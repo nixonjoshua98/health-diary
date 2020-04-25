@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "JOSH-CPD",
-    "slug": "josh-cpd",
+    "name": "JOSHUA-NIXON-CPD",
+    "slug": "joshua-nixon-cpd",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
@@ -26,6 +26,6 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": ""
+    "description": "CPD Submission"
   }
 }

@@ -47,6 +47,7 @@ export default class EditEntryScreen extends React.Component {
 
     await this.setState(
       {
+        OldText: entry.Text,
         Text: entry.Text,
         image: entry.Image,
         Date: entry.Date,
@@ -88,7 +89,7 @@ export default class EditEntryScreen extends React.Component {
         <RootView>
 
          <DiaryEntryView>
-           <TextInput style={MyStyleSheet.TextInput} multiline={true} onChange={e => this.OnTextUpdate(e)}/>
+           <TextInput style={MyStyleSheet.TextInput} placeholder={this.state.OldText} multiline={true} onChange={e => this.OnTextUpdate(e)}/>
 
            <BigButton text="Change Picture" width="150px" background="#0099CC" onPress={() => this._pickImage()}/>
 
